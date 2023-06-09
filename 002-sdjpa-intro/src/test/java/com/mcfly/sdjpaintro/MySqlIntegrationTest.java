@@ -4,6 +4,7 @@ import com.mcfly.sdjpaintro.domain.AuthorUuid;
 import com.mcfly.sdjpaintro.domain.BookNatural;
 import com.mcfly.sdjpaintro.domain.BookUuid;
 import com.mcfly.sdjpaintro.domain.composite.AuthorComposite;
+import com.mcfly.sdjpaintro.domain.composite.AuthorEmbedded;
 import com.mcfly.sdjpaintro.domain.composite.NameId;
 import com.mcfly.sdjpaintro.repositories.*;
 import org.junit.jupiter.api.Test;
@@ -33,6 +34,8 @@ public class MySqlIntegrationTest {
     BookNaturalRepository bookNaturalRepository;
     @Autowired
     AuthorCompositeRepository authorCompositeRepository;
+    @Autowired
+    AuthorEmbeddedRepository authorEmbeddedRepository;
 
     @Test
     void testJpaTestSliceTransaction() {
@@ -78,5 +81,15 @@ public class MySqlIntegrationTest {
         assertThat(savedAuthorComposite).isNotNull();
         final AuthorComposite foundAuthorComposite = authorCompositeRepository.findById(nameId).orElse(null);
         assertThat(foundAuthorComposite).isNotNull();
+    }
+
+    @Test
+    void testAuthorEmbeddedSaveAndGetById() {
+        final NameId nameId = new NameId("John", "T");
+        final AuthorEmbedded authorEmbedded = new AuthorEmbedded(nameId, "US");
+        final AuthorEmbedded savedAuthorEmbedded = authorEmbeddedRepository.save(authorEmbedded);
+        assertThat(savedAuthorEmbedded).isNotNull();
+        final AuthorEmbedded foundAuthorEmbedded = authorEmbeddedRepository.findById(nameId).orElse(null);
+        assertThat(foundAuthorEmbedded).isNotNull();
     }
 }
