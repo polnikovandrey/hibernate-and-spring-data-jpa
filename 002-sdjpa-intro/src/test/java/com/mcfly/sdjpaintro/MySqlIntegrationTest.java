@@ -3,10 +3,9 @@ package com.mcfly.sdjpaintro;
 import com.mcfly.sdjpaintro.domain.AuthorUuid;
 import com.mcfly.sdjpaintro.domain.BookNatural;
 import com.mcfly.sdjpaintro.domain.BookUuid;
-import com.mcfly.sdjpaintro.repositories.AuthorUuidRepository;
-import com.mcfly.sdjpaintro.repositories.BookNaturalRepository;
-import com.mcfly.sdjpaintro.repositories.BookRepository;
-import com.mcfly.sdjpaintro.repositories.BookUuidRepository;
+import com.mcfly.sdjpaintro.domain.composite.AuthorComposite;
+import com.mcfly.sdjpaintro.domain.composite.NameId;
+import com.mcfly.sdjpaintro.repositories.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -32,6 +31,8 @@ public class MySqlIntegrationTest {
     AuthorUuidRepository authorUuidRepository;
     @Autowired
     BookNaturalRepository bookNaturalRepository;
+    @Autowired
+    AuthorCompositeRepository authorCompositeRepository;
 
     @Test
     void testJpaTestSliceTransaction() {
@@ -67,5 +68,15 @@ public class MySqlIntegrationTest {
         assertThat(savedBookNatural).isNotNull();
         final BookNatural foundBookNatural = bookNaturalRepository.findById(titleAsId).orElse(null);
         assertThat(foundBookNatural).isNotNull();
+    }
+
+    @Test
+    void testAuthorCompositeSaveAndGetById() {
+        final NameId nameId = new NameId("John", "T");
+        final AuthorComposite authorComposite = new AuthorComposite(nameId.getFirstName(), nameId.getLastName(), "US");
+        final AuthorComposite savedAuthorComposite = authorCompositeRepository.save(authorComposite);
+        assertThat(savedAuthorComposite).isNotNull();
+        final AuthorComposite foundAuthorComposite = authorCompositeRepository.findById(nameId).orElse(null);
+        assertThat(foundAuthorComposite).isNotNull();
     }
 }
