@@ -1,0 +1,5 @@
+= Notes
+
+[[liquibase]]
+== Liquibase branch
+`liquibase` branch was introduced as an example of liquibase migrations. Master branch uses the flyway instead.
