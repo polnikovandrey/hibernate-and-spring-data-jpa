@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DataJpaTest
-@ComponentScan(basePackages = {"com.mcfly.sdjpaintro.bootstrap;"})
+@ComponentScan(basePackages = {"com.mcfly.sdjpaintro.bootstrap"})
 public class SpringBootJpaTestSliceTest {
 
     @Autowired
