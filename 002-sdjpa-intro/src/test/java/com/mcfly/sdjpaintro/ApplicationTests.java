@@ -18,9 +18,4 @@ class ApplicationTests {
 		final long count = bookRepository.count();
 		assertThat(count).isGreaterThan(0);
 	}
-
-	@Test
-	void contextLoads() {
-	}
-
 }
