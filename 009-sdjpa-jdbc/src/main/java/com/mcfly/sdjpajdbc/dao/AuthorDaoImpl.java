@@ -82,4 +82,24 @@ public class AuthorDaoImpl implements AuthorDao {
         }
         return null;
     }
+
+    @Override
+    public Author saveNewAuthor(Author author) {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("insert into author (first_name, last_name) values (?, ?)")) {
+            preparedStatement.setString(1, author.getFirstName());
+            preparedStatement.setString(2, author.getLastName());
+            preparedStatement.execute();
+            try (Statement innerStatement = connection.createStatement();
+                 ResultSet resultSet = innerStatement.executeQuery("select last_insert_id()")) {
+                if (resultSet.next()) {
+                    final Long savedId = resultSet.getLong(1);
+                    return getById(savedId);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
