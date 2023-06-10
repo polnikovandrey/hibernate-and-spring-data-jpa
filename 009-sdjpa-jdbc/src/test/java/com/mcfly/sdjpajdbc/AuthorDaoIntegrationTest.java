@@ -24,5 +24,6 @@ public class AuthorDaoIntegrationTest {
     void testGetAuthor() {
         final Author author = authorDao.getById(1L);
         assertThat(author).isNotNull();
+        System.out.println("Found author last name: " + author.getLastName());
     }
 }
