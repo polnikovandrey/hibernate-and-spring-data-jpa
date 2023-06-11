@@ -1,6 +1,7 @@
 package com.mcfly.sdjpajdbc;
 
 import com.mcfly.sdjpajdbc.dao.BookDao;
+import com.mcfly.sdjpajdbc.domain.Author;
 import com.mcfly.sdjpajdbc.domain.Book;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,8 @@ public class BookDaoIntegrationTest {
 
     @Test
     void testGetBookById() {
-        final Book book = new Book("Test book", "Test isbn", "Test publisher", 1L);
-        final Book createdBook = bookDao.createNewBook(book);
+        final Book book = new Book("Test book", "Test isbn", "Test publisher", null);
+        final Book createdBook = bookDao.saveNewBook(book);
         final Book foundBook = bookDao.getById(createdBook.getId());
         assertThat(foundBook).isNotNull();
         System.out.println("Found book id: " + foundBook.getId());
@@ -31,8 +32,8 @@ public class BookDaoIntegrationTest {
 
     @Test
     void testGetBookByTitle() {
-        final Book book = new Book("Test book", "Test isbn", "Test publisher", 1L);
-        bookDao.createNewBook(book);
+        final Book book = new Book("Test book", "Test isbn", "Test publisher", null);
+        bookDao.saveNewBook(book);
         final Book foundBook = bookDao.getByTitle(book.getTitle());
         assertThat(foundBook).isNotNull();
         System.out.println("Found book id: " + foundBook.getId());
@@ -40,8 +41,10 @@ public class BookDaoIntegrationTest {
 
     @Test
     void testCreateNewBook() {
-        final Book book = new Book("Test book", "Test isbn", "Test publisher", 1L);
-        final Book createdBook = bookDao.createNewBook(book);
+        final Author author = new Author();
+        author.setId(1L);
+        final Book book = new Book("Test book", "Test isbn", "Test publisher", author);
+        final Book createdBook = bookDao.saveNewBook(book);
         assertThat(createdBook).isNotNull();
         assertThat(createdBook.getId()).isNotNull();
         System.out.println("Created book id: " + createdBook.getId());
@@ -49,8 +52,10 @@ public class BookDaoIntegrationTest {
 
     @Test
     void testUpdateBook() {
-        final Book book = new Book("Test book", "Test isbn", "Test publisher", 1L);
-        final Book createdBook = bookDao.createNewBook(book);
+        final Author author = new Author();
+        author.setId(1L);
+        final Book book = new Book("Test book", "Test isbn", "Test publisher", author);
+        final Book createdBook = bookDao.saveNewBook(book);
         createdBook.setTitle("Updated test book");
         final Book updatedBook = bookDao.updateBook(createdBook);
         assertThat(updatedBook.getTitle()).isEqualTo(createdBook.getTitle());
@@ -59,8 +64,8 @@ public class BookDaoIntegrationTest {
 
     @Test
     void deleteBook() {
-        final Book book = new Book("Test book", "Test isbn", "Test publisher", 1L);
-        final Book createdBook = bookDao.createNewBook(book);
+        final Book book = new Book("Test book", "Test isbn", "Test publisher", null);
+        final Book createdBook = bookDao.saveNewBook(book);
         bookDao.deleteBookById(createdBook.getId());
         final Book deletedNotFoundBook = bookDao.getById(createdBook.getId());
         assertThat(deletedNotFoundBook).isNull();

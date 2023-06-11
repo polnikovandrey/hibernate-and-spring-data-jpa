@@ -8,7 +8,7 @@ public interface BookDao {
 
     Book getByTitle(String title);
 
-    Book createNewBook(Book book);
+    Book saveNewBook(Book book);
 
     Book updateBook(Book book);
 

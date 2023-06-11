@@ -1,6 +1,8 @@
 package com.mcfly.sdjpajdbc.dao;
 
+import com.mcfly.sdjpajdbc.domain.Author;
 import com.mcfly.sdjpajdbc.domain.Book;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
@@ -10,9 +12,12 @@ import java.sql.*;
 public class BookDaoImpl implements BookDao {
 
     private final DataSource dataSource;
+    private final AuthorDao authorDao;
 
-    public BookDaoImpl(DataSource dataSource) {
+    @Autowired
+    public BookDaoImpl(DataSource dataSource, AuthorDao authorDao) {
         this.dataSource = dataSource;
+        this.authorDao = authorDao;
     }
 
     @Override
@@ -26,8 +31,8 @@ public class BookDaoImpl implements BookDao {
                     final String title = resultSet.getString("title");
                     final String isbn = resultSet.getString("isbn");
                     final String publisher = resultSet.getString("publisher");
-                    final long authorId = resultSet.getLong("author_id");
-                    final Book book = new Book(title, isbn, publisher, authorId);
+                    final Author author = authorDao.getById(resultSet.getLong("author_id"));
+                    final Book book = new Book(title, isbn, publisher, author);
                     book.setId(id);
                     return book;
                 }
@@ -49,8 +54,8 @@ public class BookDaoImpl implements BookDao {
                     final String title = resultSet.getString("title");
                     final String isbn = resultSet.getString("isbn");
                     final String publisher = resultSet.getString("publisher");
-                    final long authorId = resultSet.getLong("author_id");
-                    final Book book = new Book(title, isbn, publisher, authorId);
+                    final Author author = authorDao.getById(resultSet.getLong("author_id"));
+                    final Book book = new Book(title, isbn, publisher, author);
                     book.setId(id);
                     return book;
                 }
@@ -62,13 +67,17 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public Book createNewBook(Book aBook) {
+    public Book saveNewBook(Book aBook) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("insert into book (title, isbn, publisher, author_id) values (?, ?, ?, ?)")) {
             preparedStatement.setString(1, aBook.getTitle());
             preparedStatement.setString(2, aBook.getIsbn());
             preparedStatement.setString(3, aBook.getPublisher());
-            preparedStatement.setLong(4, aBook.getAuthorId());
+            if (aBook.getAuthor() == null) {
+                preparedStatement.setNull(4, Types.BIGINT);
+            } else {
+                preparedStatement.setLong(4, aBook.getAuthor().getId());
+            }
             preparedStatement.execute();
             try (Statement innerStatement = connection.createStatement();
                  ResultSet resultSet = innerStatement.executeQuery("select last_insert_id()")) {
@@ -90,7 +99,11 @@ public class BookDaoImpl implements BookDao {
             preparedStatement.setString(1, aBook.getTitle());
             preparedStatement.setString(2, aBook.getIsbn());
             preparedStatement.setString(3, aBook.getPublisher());
-            preparedStatement.setLong(4, aBook.getAuthorId());
+            if (aBook.getAuthor() == null) {
+                preparedStatement.setNull(4, Types.BIGINT);
+            } else {
+                preparedStatement.setLong(4, aBook.getAuthor().getId());
+            }
             preparedStatement.setLong(5, aBook.getId());
             preparedStatement.execute();
             return getById(aBook.getId());
