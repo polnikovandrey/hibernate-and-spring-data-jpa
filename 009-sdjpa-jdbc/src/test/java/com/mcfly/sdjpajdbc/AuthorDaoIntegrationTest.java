@@ -52,4 +52,14 @@ public class AuthorDaoIntegrationTest {
         assertThat(updatedAuthor.getLastName()).isEqualTo("Thompson");
         System.out.println("Updated author last name: "  + updatedAuthor.getLastName());
     }
+
+    @Test
+    void testDeleteAuthorById() {
+        final Author author = new Author("John", "T");
+        final Author savedAuthor = authorDao.saveNewAuthor(author);
+        authorDao.deleteAuthorById(savedAuthor.getId());
+        final Author deletedNotFoundAuthor = authorDao.getById(savedAuthor.getId());
+        assertThat(deletedNotFoundAuthor).isNull();
+        System.out.println("Deleted author id: " + savedAuthor.getId());
+    }
 }
