@@ -123,26 +123,23 @@ public class DaoIntegrationTest {
 
     @Test
     void testSaveAuthor() {
-        Author author = new Author();
+        final Author author = new Author();
         author.setFirstName("John");
         author.setLastName("Thompson");
         Author saved = authorDao.saveNewAuthor(author);
-
         assertThat(saved).isNotNull();
+        assertThat(saved.getId()).isNotNull();
     }
 
     @Test
     void testGetAuthorByName() {
-        Author author = authorDao.findAuthorByName("Craig", "Walls");
-
+        final Author author = authorDao.findAuthorByName("Craig", "Walls");
         assertThat(author).isNotNull();
     }
 
     @Test
     void testGetAuthor() {
-
-        Author author = authorDao.getById(1L);
-
+        final Author author = authorDao.getById(1L);
         assertThat(author).isNotNull();
 
     }
