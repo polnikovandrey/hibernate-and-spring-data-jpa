@@ -26,7 +26,9 @@ public class AuthorDaoImpl implements AuthorDao {
 
     @Override
     public Author saveNewAuthor(Author author) {
-        return null;
+        jdbcTemplate.update("insert into author (first_name, last_name) values (?, ?)", author.getFirstName(), author.getLastName());
+        final Long createdId = jdbcTemplate.queryForObject("select last_insert_id()", Long.class);
+        return getById(createdId);
     }
 
     @Override
