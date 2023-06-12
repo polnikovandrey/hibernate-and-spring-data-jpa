@@ -39,7 +39,7 @@ public class AuthorDaoImpl implements AuthorDao {
 
     @Override
     public void deleteAuthorById(Long id) {
-
+        jdbcTemplate.update("delete from author where id = ?", id);
     }
 
     private RowMapper<Author> getRowMapper() {
