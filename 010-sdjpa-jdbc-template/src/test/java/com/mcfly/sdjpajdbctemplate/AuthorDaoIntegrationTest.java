@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.dao.TransientDataAccessException;
 import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -60,7 +60,7 @@ public class AuthorDaoIntegrationTest {
         final Author author = new Author("John", "T");
         final Author savedAuthor = authorDao.saveNewAuthor(author);
         authorDao.deleteAuthorById(savedAuthor.getId());
-        assertThrows(EmptyResultDataAccessException.class, () -> authorDao.getById(savedAuthor.getId()));
+        assertThrows(TransientDataAccessException.class, () -> authorDao.getById(savedAuthor.getId()));
         System.out.println("Deleted author id: " + savedAuthor.getId());
     }
 }
