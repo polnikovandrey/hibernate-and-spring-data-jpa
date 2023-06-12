@@ -1,7 +1,7 @@
-package com.sdjpajdbctemplate.repositories;
+package com.mcfly.sdjpajdbctemplate.repositories;
 
 
-import com.sdjpajdbctemplate.domain.Author;
+import com.mcfly.sdjpajdbctemplate.domain.Author;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AuthorRepository extends JpaRepository<Author, Long> {

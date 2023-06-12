@@ -1,7 +1,7 @@
-package com.sdjpajdbctemplate;
+package com.mcfly.sdjpajdbctemplate;
 
-import com.sdjpajdbctemplate.dao.BookDao;
-import com.sdjpajdbctemplate.domain.Book;
+import com.mcfly.sdjpajdbctemplate.dao.BookDao;
+import com.mcfly.sdjpajdbctemplate.domain.Book;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;

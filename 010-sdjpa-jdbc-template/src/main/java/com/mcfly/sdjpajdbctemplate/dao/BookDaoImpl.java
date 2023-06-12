@@ -1,6 +1,6 @@
-package com.sdjpajdbctemplate.dao;
+package com.mcfly.sdjpajdbctemplate.dao;
 
-import com.sdjpajdbctemplate.domain.Book;
+import com.mcfly.sdjpajdbctemplate.domain.Book;
 import org.springframework.stereotype.Component;
 
 @Component

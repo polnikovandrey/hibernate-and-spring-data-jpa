@@ -1,6 +1,6 @@
-package com.sdjpajdbctemplate.dao;
+package com.mcfly.sdjpajdbctemplate.dao;
 
-import com.sdjpajdbctemplate.domain.Author;
+import com.mcfly.sdjpajdbctemplate.domain.Author;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

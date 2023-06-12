@@ -1,4 +1,4 @@
-package com.sdjpajdbctemplate;
+package com.mcfly.sdjpajdbctemplate;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;

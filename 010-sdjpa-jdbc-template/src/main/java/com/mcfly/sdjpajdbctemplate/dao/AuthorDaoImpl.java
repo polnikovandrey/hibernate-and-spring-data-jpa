@@ -1,15 +1,22 @@
-package com.sdjpajdbctemplate.dao;
+package com.mcfly.sdjpajdbctemplate.dao;
 
-import com.sdjpajdbctemplate.domain.Author;
+import com.mcfly.sdjpajdbctemplate.domain.Author;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 @Component
 public class AuthorDaoImpl implements AuthorDao {
 
+    private final JdbcTemplate jdbcTemplate;
+
+    public AuthorDaoImpl(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
     @Override
     public Author getById(Long id) {
-        return null;
+        return jdbcTemplate.queryForObject("select * from author where id = ?", getRowMapper(), id);
     }
 
     @Override
