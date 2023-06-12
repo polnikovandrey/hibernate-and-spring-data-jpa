@@ -60,9 +60,7 @@ public class AuthorDaoIntegrationTest {
         final Author author = new Author("John", "T");
         final Author savedAuthor = authorDao.saveNewAuthor(author);
         authorDao.deleteAuthorById(savedAuthor.getId());
-        assertThrows(EmptyResultDataAccessException.class, () -> {
-            authorDao.getById(savedAuthor.getId());
-        });
+        assertThrows(EmptyResultDataAccessException.class, () -> authorDao.getById(savedAuthor.getId()));
         System.out.println("Deleted author id: " + savedAuthor.getId());
     }
 }

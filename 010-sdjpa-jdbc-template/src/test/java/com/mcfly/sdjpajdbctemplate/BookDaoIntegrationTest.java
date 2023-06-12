@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ActiveProfiles("local")
 @DataJpaTest
@@ -40,9 +42,6 @@ public class BookDaoIntegrationTest {
 
     @Test
     void testCreateNewBook() {
-//        final Author author = new Author();
-//        author.setId(1L);
-//        final Book book = new Book("Test book", "Test isbn", "Test publisher", author);
         final Book book = new Book("Test book", "Test isbn", "Test publisher", 1L);
         final Book createdBook = bookDao.saveNewBook(book);
         assertThat(createdBook).isNotNull();
@@ -52,9 +51,6 @@ public class BookDaoIntegrationTest {
 
     @Test
     void testUpdateBook() {
-//        final Author author = new Author();
-//        author.setId(1L);
-//        final Book book = new Book("Test book", "Test isbn", "Test publisher", author);
         final Book book = new Book("Test book", "Test isbn", "Test publisher", 1L);
         final Book createdBook = bookDao.saveNewBook(book);
         createdBook.setTitle("Updated test book");
@@ -68,8 +64,7 @@ public class BookDaoIntegrationTest {
         final Book book = new Book("Test book", "Test isbn", "Test publisher", null);
         final Book createdBook = bookDao.saveNewBook(book);
         bookDao.deleteBookById(createdBook.getId());
-        final Book deletedNotFoundBook = bookDao.getById(createdBook.getId());
-        assertThat(deletedNotFoundBook).isNull();
+        assertThrows(EmptyResultDataAccessException.class, () -> bookDao.getById(createdBook.getId()));
         System.out.println("Deleted book id: " + createdBook.getId());
     }
 }
