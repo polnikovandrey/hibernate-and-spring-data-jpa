@@ -1,4 +1,4 @@
-package guru.springframework.jdbc.domain;
+package com.sdjpajdbctemplate.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,10 +23,11 @@ public class Book {
 
     }
 
-    public Book(String title, String isbn, String publisher) {
+    public Book(String title, String isbn, String publisher, Long authorId) {
         this.title = title;
         this.isbn = isbn;
         this.publisher = publisher;
+        this.authorId = authorId;
     }
 
     @Override

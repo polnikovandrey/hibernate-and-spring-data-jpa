@@ -1,4 +1,4 @@
-package guru.springframework.jdbc;
+package com.sdjpajdbctemplate;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

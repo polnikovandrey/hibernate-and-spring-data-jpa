@@ -1,4 +1,4 @@
-package guru.springframework.jdbc.domain;
+package com.sdjpajdbctemplate.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,6 +14,14 @@ public class Author {
 
     private String firstName;
     private String lastName;
+
+    public Author() {
+    }
+
+    public Author(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
     public Long getId() {
         return id;
