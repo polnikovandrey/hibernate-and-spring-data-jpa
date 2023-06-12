@@ -21,7 +21,7 @@ public class AuthorDaoImpl implements AuthorDao {
 
     @Override
     public Author getByName(String firstName, String lastName) {
-        return null;
+        return jdbcTemplate.queryForObject("select * from author where first_name = ? and last_name = ?", getRowMapper(), firstName, lastName);
     }
 
     @Override
