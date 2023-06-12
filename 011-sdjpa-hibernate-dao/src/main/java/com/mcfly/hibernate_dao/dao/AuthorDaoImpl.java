@@ -6,64 +6,51 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.TypedQuery;
 import org.springframework.stereotype.Component;
 
-import java.util.function.Function;
-
 @Component
 public class AuthorDaoImpl implements AuthorDao {
 
-    private final EntityManagerFactory entityManagerFactory;
+    private final EntityManager entityManager;
 
     public AuthorDaoImpl(EntityManagerFactory entityManagerFactory) {
-        this.entityManagerFactory = entityManagerFactory;
+        this.entityManager = entityManagerFactory.createEntityManager();
     }
 
     @Override
     public Author getById(Long id) {
-        return createEntityManager(entityManager -> entityManager.find(Author.class, id));
+        return entityManager.find(Author.class, id);
     }
 
     @Override
     public Author findAuthorByName(String firstName, String lastName) {
-        return createEntityManager(entityManager -> {
-            final TypedQuery<Author> query
-                    = entityManager.createQuery(
-                    "select a from Author a where a.firstName = :first_name and a.lastName = :last_name",
-                    Author.class);
-            query.setParameter("first_name", firstName);
-            query.setParameter("last_name", lastName);
-            return query.getSingleResult();
-        });
+        final TypedQuery<Author> query
+                = entityManager.createQuery(
+                "select a from Author a where a.firstName = :first_name and a.lastName = :last_name",
+                Author.class);
+        query.setParameter("first_name", firstName);
+        query.setParameter("last_name", lastName);
+        return query.getSingleResult();
     }
 
     @Override
     public Author saveNewAuthor(Author author) {
-        return createEntityManager(entityManager -> {
-            entityManager.joinTransaction();
-            entityManager.persist(author);
-            entityManager.flush();
-            return author;
-        });
+        entityManager.joinTransaction();
+        entityManager.persist(author);
+        entityManager.flush();
+        entityManager.clear();
+        return entityManager.find(Author.class, author.getId());
     }
 
     @Override
     public Author updateAuthor(Author author) {
-        return createEntityManager(entityManager -> {
-            entityManager.joinTransaction();
-            final Author merged = entityManager.merge(author);
-            entityManager.flush();
-            entityManager.clear();
-            return entityManager.find(Author.class, merged.getId());
-        });
+        entityManager.joinTransaction();
+        final Author merged = entityManager.merge(author);
+        return entityManager.find(Author.class, merged.getId());
     }
 
     @Override
     public void deleteAuthorById(Long id) {
-
-    }
-
-    private <T> T createEntityManager(Function<EntityManager, T> entityManagerToTypeFunction) {
-        try (final EntityManager entityManager = entityManagerFactory.createEntityManager()) {
-            return entityManagerToTypeFunction.apply(entityManager);
-        }
+        final Author author = entityManager.find(Author.class, id);
+        entityManager.joinTransaction();
+        entityManager.remove(author);
     }
 }
