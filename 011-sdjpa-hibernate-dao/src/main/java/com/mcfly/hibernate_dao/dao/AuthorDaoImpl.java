@@ -1,6 +1,8 @@
 package com.mcfly.hibernate_dao.dao;
 
 import com.mcfly.hibernate_dao.domain.Author;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import org.springframework.stereotype.Component;
 
 /**
@@ -8,9 +10,18 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class AuthorDaoImpl implements AuthorDao {
+
+    private final EntityManagerFactory entityManagerFactory;
+
+    public AuthorDaoImpl(EntityManagerFactory entityManagerFactory) {
+        this.entityManagerFactory = entityManagerFactory;
+    }
+
     @Override
     public Author getById(Long id) {
-        return null;
+        try (final EntityManager entityManager = entityManagerFactory.createEntityManager()) {
+            return entityManager.find(Author.class, id);
+        }
     }
 
     @Override
