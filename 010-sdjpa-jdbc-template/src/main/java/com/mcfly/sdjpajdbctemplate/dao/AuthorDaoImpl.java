@@ -2,7 +2,6 @@ package com.mcfly.sdjpajdbctemplate.dao;
 
 import com.mcfly.sdjpajdbctemplate.domain.Author;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -23,7 +22,7 @@ public class AuthorDaoImpl implements AuthorDao {
 
     @Override
     public Author getByName(String firstName, String lastName) {
-        return jdbcTemplate.queryForObject("select * from author where first_name = ? and last_name = ?", getRowMapper(), firstName, lastName);
+        return jdbcTemplate.query("select author.id as id, first_name, last_name, book.id as book_id, book.isbn, book.publisher, book.title from author left outer join book on author.id = book.author_id where first_name = ? and last_name = ?", new AuthorExtractor(), firstName, lastName);
     }
 
     @Override
@@ -42,9 +41,5 @@ public class AuthorDaoImpl implements AuthorDao {
     @Override
     public void deleteAuthorById(Long id) {
         jdbcTemplate.update("delete from author where id = ?", id);
-    }
-
-    private RowMapper<Author> getRowMapper() {
-        return new AuthorMapper();
     }
 }

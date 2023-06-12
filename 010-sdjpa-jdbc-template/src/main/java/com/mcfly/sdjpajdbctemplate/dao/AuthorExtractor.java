@@ -11,7 +11,6 @@ public class AuthorExtractor implements ResultSetExtractor<Author> {
 
     @Override
     public Author extractData(ResultSet rs) throws SQLException, DataAccessException {
-        rs.next();
         return new AuthorMapper().mapRow(rs, 0);
     }
 }

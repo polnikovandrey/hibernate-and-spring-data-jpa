@@ -12,31 +12,36 @@ public class AuthorMapper implements RowMapper<Author> {
 
     @Override
     public Author mapRow(ResultSet rs, int rowNum) throws SQLException {
-        final Author author = new Author();
-        author.setId(rs.getLong("id"));
-        author.setFirstName(rs.getString("first_name"));
-        author.setLastName(rs.getString("last_name"));
-        try {
-            if (rs.getString("isbn") != null) {
-                author.setBooks(new ArrayList<>());
-                author.getBooks().add(mapBook(rs));
-                while (rs.next()) {
-                    author.getBooks().add(mapBook(rs));
+        if (rs.next()) {
+            final Author author = new Author();
+            author.setId(rs.getLong("id"));
+            author.setFirstName(rs.getString("first_name"));
+            author.setLastName(rs.getString("last_name"));
+            author.setBooks(new ArrayList<>());
+            try {
+                if (rs.getString("isbn") != null) {
+                    author.getBooks().add(mapBook(author.getId(), rs));
+                    while (rs.next()) {
+                        if (rs.getString("isbn") != null) {
+                            author.getBooks().add(mapBook(author.getId(), rs));
+                        }
+                    }
                 }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            return author;
         }
-        return author;
+        return null;
     }
 
-    private Book mapBook(ResultSet rs) throws SQLException {
+    private Book mapBook(Long authorId, ResultSet rs) throws SQLException {
         final Book book = new Book();
-        book.setId(rs.getLong(4));
-        book.setIsbn(rs.getString(5));
-        book.setPublisher(rs.getString(6));
-        book.setTitle(rs.getString(7));
-        book.setAuthorId(rs.getLong(1));
+        book.setId(rs.getLong("book_id"));
+        book.setIsbn(rs.getString("isbn"));
+        book.setPublisher(rs.getString("publisher"));
+        book.setTitle(rs.getString("title"));
+        book.setAuthorId(authorId);
         return book;
     }
 }
