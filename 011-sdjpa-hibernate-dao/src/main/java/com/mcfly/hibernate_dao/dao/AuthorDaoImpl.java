@@ -35,6 +35,13 @@ public class AuthorDaoImpl implements AuthorDao {
     }
 
     @Override
+    public Author findByLastName(String lastName) {
+        final TypedQuery<Author> query = entityManager.createNamedQuery("author_find_by_last_name", Author.class);
+        query.setParameter("last_name", lastName);
+        return query.getSingleResult();
+    }
+
+    @Override
     public Author saveNewAuthor(Author author) {
         entityManager.joinTransaction();
         entityManager.persist(author);

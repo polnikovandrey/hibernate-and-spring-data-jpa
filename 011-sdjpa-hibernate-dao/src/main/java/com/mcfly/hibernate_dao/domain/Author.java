@@ -2,7 +2,10 @@ package com.mcfly.hibernate_dao.domain;
 
 import jakarta.persistence.*;
 
-@NamedQuery(name = "author_find_all", query = "from Author")
+@NamedQueries({
+        @NamedQuery(name = "author_find_all", query = "from Author"),
+        @NamedQuery(name = "author_find_by_last_name", query = "from Author a where a.lastName = :last_name")
+})
 @Entity
 public class Author {
 

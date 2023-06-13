@@ -147,4 +147,11 @@ public class DaoIntegrationTest {
         assertThat(authors.size()).isGreaterThan(0);
 
     }
+
+    @Test
+    void testFindAuthorByLastName() {
+        final Author author = authorDao.findByLastName("Walls");
+        assertThat(author).isNotNull();
+        assertThat(author.getLastName()).isEqualTo("Walls");
+    }
 }
