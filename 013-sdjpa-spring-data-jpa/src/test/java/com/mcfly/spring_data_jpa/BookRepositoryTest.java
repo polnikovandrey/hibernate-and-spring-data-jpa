@@ -1,5 +1,6 @@
 package com.mcfly.spring_data_jpa;
 
+import com.mcfly.spring_data_jpa.domain.Book;
 import com.mcfly.spring_data_jpa.repositories.BookRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +10,12 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ActiveProfiles("local")
 @DataJpaTest
@@ -45,5 +47,12 @@ public class BookRepositoryTest {
         bookRepository.findAllByTitleNotNull()
                       .forEach(book -> count.incrementAndGet());
         assertThat(count.get()).isGreaterThan(2);
+    }
+
+    @Test
+    void testBookFuture() throws ExecutionException, InterruptedException {
+        final Future<Book> bookFuture = bookRepository.queryByTitle("Clean code");
+        final Book book = bookFuture.get();
+        assertNotNull(book);
     }
 }
