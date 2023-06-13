@@ -20,7 +20,7 @@ public class AuthorDaoImpl implements AuthorDao {
 
     @Override
     public Author getById(Long id) {
-        return authorRepository.getReferenceById(id);
+        return authorRepository.getAuthorById(id).orElseThrow(EntityNotFoundException::new);
     }
 
     @Override
