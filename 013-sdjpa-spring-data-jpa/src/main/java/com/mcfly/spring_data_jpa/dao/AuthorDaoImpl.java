@@ -1,6 +1,8 @@
 package com.mcfly.spring_data_jpa.dao;
 
 import com.mcfly.spring_data_jpa.domain.Author;
+import com.mcfly.spring_data_jpa.repositories.AuthorRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Component;
 
 /**
@@ -8,9 +10,16 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class AuthorDaoImpl implements AuthorDao {
+
+    private final AuthorRepository authorRepository;
+
+    public AuthorDaoImpl(AuthorRepository authorRepository) {
+        this.authorRepository = authorRepository;
+    }
+
     @Override
     public Author getById(Long id) {
-        return null;
+        return authorRepository.getReferenceById(id);
     }
 
     @Override
@@ -20,16 +29,20 @@ public class AuthorDaoImpl implements AuthorDao {
 
     @Override
     public Author saveNewAuthor(Author author) {
-        return null;
+        return authorRepository.save(author);
     }
 
+    @Transactional
     @Override
     public Author updateAuthor(Author author) {
-        return null;
+        final Author foundAuthor = authorRepository.getReferenceById(author.getId());
+        foundAuthor.setFirstName(author.getFirstName());
+        foundAuthor.setLastName(author.getLastName());
+        return authorRepository.save(author);
     }
 
     @Override
     public void deleteAuthorById(Long id) {
-
+        authorRepository.deleteById(id);
     }
 }
