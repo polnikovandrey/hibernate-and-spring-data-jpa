@@ -89,6 +89,13 @@ public class DaoIntegrationTest {
     }
 
     @Test
+    void testFindAllBooks() {
+        final List<Book> books = bookDao.findAll();
+        assertThat(books).isNotNull();
+        assertThat(books.size()).isGreaterThan(0);
+    }
+
+    @Test
     void testDeleteAuthor() {
         final Author author = new Author();
         author.setFirstName("john");

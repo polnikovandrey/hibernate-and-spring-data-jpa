@@ -1,13 +1,14 @@
 package com.mcfly.hibernate_dao.domain;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.Objects;
 
+@NamedQueries({
+        @NamedQuery(name = "book_find_all", query = "from Book"),
+        @NamedQuery(name = "book_by_isbn", query = "from Book b where b.isbn = :isbn")
+})
 @Entity
 public class Book {
 

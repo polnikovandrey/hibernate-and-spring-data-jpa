@@ -2,6 +2,8 @@ package com.mcfly.hibernate_dao.dao;
 
 import com.mcfly.hibernate_dao.domain.Book;
 
+import java.util.List;
+
 public interface BookDao {
 
     Book getById(Long id);
@@ -15,4 +17,6 @@ public interface BookDao {
     void deleteBookById(Long id);
 
     Book findByIsbn(String isbn);
+
+    List<Book> findAll();
 }
