@@ -13,4 +13,6 @@ public interface BookDao {
     void updateBook(Book book);
 
     void deleteBookById(Long id);
+
+    Book findByIsbn(String isbn);
 }

@@ -3,8 +3,11 @@ package com.mcfly.hibernate_dao.dao;
 import com.mcfly.hibernate_dao.domain.Author;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class AuthorDaoImpl implements AuthorDao {
@@ -52,5 +55,13 @@ public class AuthorDaoImpl implements AuthorDao {
         final Author author = entityManager.find(Author.class, id);
         entityManager.joinTransaction();
         entityManager.remove(author);
+    }
+
+    @Override
+    public List<Author> listAuthorByLastNameLike(String lastNameLike) {
+        final Query query = entityManager.createQuery("select a from Author a where a.lastName like :last_name");
+        query.setParameter("last_name", lastNameLike + "%");
+        //noinspection unchecked
+        return query.getResultList();
     }
 }

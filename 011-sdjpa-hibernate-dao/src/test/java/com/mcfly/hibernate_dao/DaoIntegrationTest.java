@@ -6,12 +6,15 @@ import com.mcfly.hibernate_dao.dao.BookDao;
 import com.mcfly.hibernate_dao.dao.BookDaoImpl;
 import com.mcfly.hibernate_dao.domain.Author;
 import com.mcfly.hibernate_dao.domain.Book;
+import net.bytebuddy.utility.RandomString;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
+
+import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -76,6 +79,16 @@ public class DaoIntegrationTest {
     }
 
     @Test
+    void testFindBookByIsbn() {
+        final Book book = new Book();
+        book.setIsbn("1234" + RandomString.make());
+        book.setTitle("ISBN Test");
+        bookDao.saveNewBook(book);
+        final Book fetched = bookDao.findByIsbn(book.getIsbn());
+        assertThat(fetched).isNotNull();
+    }
+
+    @Test
     void testDeleteAuthor() {
         final Author author = new Author();
         author.setFirstName("john");
@@ -118,5 +131,12 @@ public class DaoIntegrationTest {
         final Author author = authorDao.getById(1L);
         assertThat(author).isNotNull();
 
+    }
+
+    @Test
+    void testListAuthorByLastNameLike() {
+        final List<Author> authors = authorDao.listAuthorByLastNameLike("Wall");
+        assertThat(authors).isNotNull();
+        assertThat(authors.size()).isGreaterThan(0);
     }
 }

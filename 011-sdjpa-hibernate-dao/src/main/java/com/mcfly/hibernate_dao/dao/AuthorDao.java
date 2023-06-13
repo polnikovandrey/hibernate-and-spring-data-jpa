@@ -2,6 +2,8 @@ package com.mcfly.hibernate_dao.dao;
 
 import com.mcfly.hibernate_dao.domain.Author;
 
+import java.util.List;
+
 public interface AuthorDao {
 
     Author getById(Long id);
@@ -13,4 +15,6 @@ public interface AuthorDao {
     Author updateAuthor(Author author);
 
     void deleteAuthorById(Long id);
+
+    List<Author> listAuthorByLastNameLike(String lastNameLike);
 }
