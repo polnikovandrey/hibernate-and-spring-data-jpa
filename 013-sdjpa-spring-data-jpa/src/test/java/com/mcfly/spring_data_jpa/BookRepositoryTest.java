@@ -55,4 +55,10 @@ public class BookRepositoryTest {
         final Book book = bookFuture.get();
         assertNotNull(book);
     }
+
+    @Test
+    void testBookQuery() {
+        final Book book = bookRepository.findBookByTitleWithQuery("Clean code");
+        assertThat(book).isNotNull();
+    }
 }
