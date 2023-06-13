@@ -139,4 +139,12 @@ public class DaoIntegrationTest {
         assertThat(authors).isNotNull();
         assertThat(authors.size()).isGreaterThan(0);
     }
+
+    @Test
+    void testFindAllAuthors() {
+        final List<Author> authors = authorDao.findAll();
+        assertThat(authors).isNotNull();
+        assertThat(authors.size()).isGreaterThan(0);
+
+    }
 }

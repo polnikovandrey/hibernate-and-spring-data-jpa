@@ -64,4 +64,10 @@ public class AuthorDaoImpl implements AuthorDao {
         //noinspection unchecked
         return query.getResultList();
     }
+
+    @Override
+    public List<Author> findAll() {
+        final TypedQuery<Author> query = entityManager.createNamedQuery("author_find_all", Author.class);
+        return query.getResultList();
+    }
 }

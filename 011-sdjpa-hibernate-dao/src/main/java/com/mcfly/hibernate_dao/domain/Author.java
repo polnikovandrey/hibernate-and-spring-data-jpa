@@ -1,10 +1,8 @@
 package com.mcfly.hibernate_dao.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+@NamedQuery(name = "author_find_all", query = "from Author")
 @Entity
 public class Author {
 
