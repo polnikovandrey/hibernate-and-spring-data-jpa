@@ -3,6 +3,7 @@ package com.mcfly.spring_data_jpa;
 import com.mcfly.spring_data_jpa.dao.AuthorDao;
 import com.mcfly.spring_data_jpa.dao.AuthorDaoImpl;
 import com.mcfly.spring_data_jpa.domain.Author;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -134,6 +135,7 @@ public class DaoIntegrationTest {
     void testGetAuthorByName() {
         final Author author = authorDao.findAuthorByName("Craig", "Walls");
         assertThat(author).isNotNull();
+        assertThrows(EntityNotFoundException.class, () -> authorDao.findAuthorByName("1", "2"));
     }
 
     @Test
