@@ -12,6 +12,8 @@ public interface AuthorDao {
 
     Author findByLastName(String lastName);
 
+    Author findByFirstName(String firstName);
+
     Author saveNewAuthor(Author author);
 
     Author updateAuthor(Author author);

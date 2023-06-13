@@ -134,6 +134,13 @@ public class DaoIntegrationTest {
     }
 
     @Test
+    void testGetAuthorByLastName() {
+        final Author author = authorDao.findByFirstName("Craig");
+        assertThat(author).isNotNull();
+        assertThat(author.getFirstName()).isEqualTo("Craig");
+    }
+
+    @Test
     void testGetAuthor() {
         final Author author = authorDao.getById(1L);
         assertThat(author).isNotNull();
