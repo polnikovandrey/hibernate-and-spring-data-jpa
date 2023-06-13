@@ -3,6 +3,7 @@ package com.mcfly.hibernate_dao.dao;
 import com.mcfly.hibernate_dao.domain.Book;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
 import org.springframework.stereotype.Component;
@@ -42,6 +43,13 @@ public class BookDaoImpl implements BookDao {
         final TypedQuery<Book> typedQuery = entityManager.createQuery(query);
         typedQuery.setParameter(titleParameter, title);
         return typedQuery.getSingleResult();
+    }
+
+    @Override
+    public Book findBookByTitleNative(String title) {
+        final Query query = entityManager.createNativeQuery("select * from book b where b.title = ?", Book.class);
+        query.setParameter(1, title);
+        return (Book)query.getSingleResult();
     }
 
     @Override
