@@ -28,6 +28,7 @@ public class OrderRepositoryTest {
         final OrderHeader found = orderHeaderRepository.getReferenceById(saved.getId());
         assertThat(found).isNotNull();
         assertThat(found.getCreatedDate()).isNotNull();
+        assertThat(found.getLastModifiedDate()).isNotNull();
     }
 
 }
