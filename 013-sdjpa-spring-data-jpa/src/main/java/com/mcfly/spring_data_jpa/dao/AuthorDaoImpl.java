@@ -9,9 +9,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-/**
- * Created by jt on 8/28/21.
- */
 @Component
 public class AuthorDaoImpl implements AuthorDao {
 
