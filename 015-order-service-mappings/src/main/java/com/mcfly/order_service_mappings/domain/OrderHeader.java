@@ -83,4 +83,20 @@ public class OrderHeader extends BaseEntity {
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
+
+    public Address getShippingAddress() {
+        return shippingAddress;
+    }
+
+    public void setShippingAddress(Address shippingAddress) {
+        this.shippingAddress = shippingAddress;
+    }
+
+    public Address getBillToAddress() {
+        return billToAddress;
+    }
+
+    public void setBillToAddress(Address billToAddress) {
+        this.billToAddress = billToAddress;
+    }
 }
