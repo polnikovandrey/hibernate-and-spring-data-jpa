@@ -1,6 +1,7 @@
 package com.mcfly.order_service_mappings;
 
 import com.mcfly.order_service_mappings.domain.OrderHeader;
+import com.mcfly.order_service_mappings.domain.OrderLine;
 import com.mcfly.order_service_mappings.repository.OrderHeaderRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,16 +10,32 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.util.Set;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ActiveProfiles("local")
 @DataJpaTest
 @ComponentScan(basePackages = {"com.mcfly.oder_service_mappings"})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class OrderRepositoryTest {
+public class OrderHeaderRepositoryTest {
 
     @Autowired
     OrderHeaderRepository orderHeaderRepository;
+
+    @Test
+    void testSaveOrderWithLine() {
+        final OrderHeader orderHeader = new OrderHeader("Andrey Polnikov");
+        final OrderHeader savedOrder = orderHeaderRepository.save(orderHeader);
+        final OrderLine orderLine = new OrderLine();
+        orderLine.setQuantityOrdered(5);
+        orderHeader.setOrderLines(Set.of(orderLine));
+        orderLine.setOrderHeader(orderHeader);
+        assertThat(savedOrder).isNotNull();
+        assertThat(savedOrder.getId()).isNotNull();
+        assertThat(savedOrder.getOrderLines()).isNotNull();
+        assertThat(savedOrder.getOrderLines().size()).isEqualTo(1);
+    }
 
     @Test
     void testPersistNewOrderHeader() {

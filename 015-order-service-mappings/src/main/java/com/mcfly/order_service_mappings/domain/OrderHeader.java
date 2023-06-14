@@ -3,6 +3,7 @@ package com.mcfly.order_service_mappings.domain;
 import jakarta.persistence.*;
 
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @AttributeOverrides({
@@ -48,6 +49,8 @@ public class OrderHeader extends BaseEntity {
     private Address billToAddress;
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
+    @OneToMany(mappedBy = "orderHeader")
+    private Set<OrderLine> orderLines;
 
     public OrderHeader() {
     }
@@ -67,7 +70,8 @@ public class OrderHeader extends BaseEntity {
             return false;
         if (!Objects.equals(billToAddress, that.billToAddress))
             return false;
-        return orderStatus == that.orderStatus;
+        if (orderStatus != that.orderStatus) return false;
+        return Objects.equals(orderLines, that.orderLines);
     }
 
     @Override
@@ -77,6 +81,7 @@ public class OrderHeader extends BaseEntity {
         result = 31 * result + (shippingAddress != null ? shippingAddress.hashCode() : 0);
         result = 31 * result + (billToAddress != null ? billToAddress.hashCode() : 0);
         result = 31 * result + (orderStatus != null ? orderStatus.hashCode() : 0);
+        result = 31 * result + (orderLines != null ? orderLines.hashCode() : 0);
         return result;
     }
 
@@ -110,5 +115,13 @@ public class OrderHeader extends BaseEntity {
 
     public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
+    }
+
+    public Set<OrderLine> getOrderLines() {
+        return orderLines;
+    }
+
+    public void setOrderLines(Set<OrderLine> orderLines) {
+        this.orderLines = orderLines;
     }
 }
