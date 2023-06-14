@@ -1,6 +1,7 @@
 package com.mcfly.hibernate_dao.dao;
 
 import com.mcfly.hibernate_dao.domain.Author;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -25,4 +26,6 @@ public interface AuthorDao {
     List<Author> listAuthorByLastNameLike(String lastNameLike);
 
     List<Author> findAll();
+
+    List<Author> findByLastNameSortByFirstName(String lastName, Pageable pageable);
 }

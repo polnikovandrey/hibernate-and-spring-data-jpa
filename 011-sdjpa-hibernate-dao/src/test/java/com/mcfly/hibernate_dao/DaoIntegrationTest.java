@@ -242,4 +242,18 @@ public class DaoIntegrationTest {
         assertThat(author).isNotNull();
         assertThat(author.getLastName()).isEqualTo("Walls");
     }
+
+    @Test
+    void testFindAuthorsByLastNameSortByFirstNameFirstPage() {
+        final List<Author> smiths = authorDao.findByLastNameSortByFirstName("Smith", PageRequest.of(0, 10, Sort.by("first_name")));
+        Assertions.assertThat(smiths).isNotNull();
+        Assertions.assertThat(smiths.size()).isEqualTo(10);
+    }
+
+    @Test
+    void testFindAuthorsByLastNameSortByFirstNameSecondPage() {
+        final List<Author> smiths = authorDao.findByLastNameSortByFirstName("Smith", PageRequest.of(1, 10, Sort.by("first_name")));
+        Assertions.assertThat(smiths).isNotNull();
+        Assertions.assertThat(smiths.size()).isEqualTo(10);
+    }
 }
