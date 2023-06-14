@@ -33,4 +33,11 @@ public class ProductRepositoryTest {
         assertThat(found.getCreatedDate()).isNotNull();
         assertThat(found.getLastModifiedDate()).isNotNull();
     }
+
+    @Test
+    void testGetCategory() {
+        final Product product = productRepository.findByDescription("PRODUCT1");
+        assertThat(product).isNotNull();
+        assertThat(product.getCategories()).isNotNull();
+    }
 }
