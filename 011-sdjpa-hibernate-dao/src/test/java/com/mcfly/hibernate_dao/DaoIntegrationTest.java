@@ -113,6 +113,55 @@ public class DaoIntegrationTest {
     }
 
     @Test
+    void testFindBooksFirstPage() {
+        final List<Book> books = bookDao.findAllBooks(10, 0);
+        Assertions.assertThat(books).isNotNull();
+        Assertions.assertThat(books.size()).isEqualTo(10);
+    }
+
+    @Test
+    void testFindBooksSecondPage() {
+        final List<Book> books = bookDao.findAllBooks(10, 10);
+        Assertions.assertThat(books).isNotNull();
+        Assertions.assertThat(books.size()).isGreaterThan(0);
+    }
+
+    @Test
+    void testFindBooksTenthPage() {
+        final List<Book> books = bookDao.findAllBooks(10, 100);
+        Assertions.assertThat(books).isNotNull();
+        Assertions.assertThat(books.size()).isEqualTo(0);
+    }
+
+    @Test
+    void testFindBooksFirstPagePageable() {
+        final List<Book> books = bookDao.findAllBooks(PageRequest.of(0, 10));
+        Assertions.assertThat(books).isNotNull();
+        Assertions.assertThat(books.size()).isEqualTo(10);
+    }
+
+    @Test
+    void testFindBooksSecondPagePageable() {
+        final List<Book> books = bookDao.findAllBooks(PageRequest.of(1, 10));
+        Assertions.assertThat(books).isNotNull();
+        Assertions.assertThat(books.size()).isGreaterThan(0);
+    }
+
+    @Test
+    void testFindBooksTenthPagePageable() {
+        final List<Book> books = bookDao.findAllBooks(PageRequest.of(9, 10));
+        Assertions.assertThat(books).isNotNull();
+        Assertions.assertThat(books.size()).isEqualTo(0);
+    }
+
+    @Test
+    void testFindBooksFirstPagePageableSortedByTitle() {
+        final List<Book> books = bookDao.findAllBooksSortByTitle(PageRequest.of(0, 10, Sort.by(Sort.Order.desc("title"))));
+        Assertions.assertThat(books).isNotNull();
+        Assertions.assertThat(books.size()).isEqualTo(10);
+    }
+
+    @Test
     void testDeleteAuthor() {
         final Author author = new Author();
         author.setFirstName("john");
@@ -192,54 +241,5 @@ public class DaoIntegrationTest {
         final Author author = authorDao.findByLastName("Walls");
         assertThat(author).isNotNull();
         assertThat(author.getLastName()).isEqualTo("Walls");
-    }
-
-    @Test
-    void testFindBooksFirstPage() {
-        final List<Book> books = bookDao.findAllBooks(10, 0);
-        Assertions.assertThat(books).isNotNull();
-        Assertions.assertThat(books.size()).isEqualTo(10);
-    }
-
-    @Test
-    void testFindBooksSecondPage() {
-        final List<Book> books = bookDao.findAllBooks(10, 10);
-        Assertions.assertThat(books).isNotNull();
-        Assertions.assertThat(books.size()).isGreaterThan(0);
-    }
-
-    @Test
-    void testFindBooksTenthPage() {
-        final List<Book> books = bookDao.findAllBooks(10, 100);
-        Assertions.assertThat(books).isNotNull();
-        Assertions.assertThat(books.size()).isEqualTo(0);
-    }
-
-    @Test
-    void testFindBooksFirstPagePageable() {
-        final List<Book> books = bookDao.findAllBooks(PageRequest.of(0, 10));
-        Assertions.assertThat(books).isNotNull();
-        Assertions.assertThat(books.size()).isEqualTo(10);
-    }
-
-    @Test
-    void testFindBooksSecondPagePageable() {
-        final List<Book> books = bookDao.findAllBooks(PageRequest.of(1, 10));
-        Assertions.assertThat(books).isNotNull();
-        Assertions.assertThat(books.size()).isGreaterThan(0);
-    }
-
-    @Test
-    void testFindBooksTenthPagePageable() {
-        final List<Book> books = bookDao.findAllBooks(PageRequest.of(9, 10));
-        Assertions.assertThat(books).isNotNull();
-        Assertions.assertThat(books.size()).isEqualTo(0);
-    }
-
-    @Test
-    void testFindBooksFirstPagePageableSortedByTitle() {
-        final List<Book> books = bookDao.findAllBooksSortByTitle(PageRequest.of(0, 10, Sort.by(Sort.Order.desc("title"))));
-        Assertions.assertThat(books).isNotNull();
-        Assertions.assertThat(books.size()).isEqualTo(10);
     }
 }
