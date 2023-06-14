@@ -1,9 +1,6 @@
 package com.mcfly.order_service_mappings.domain;
 
-import jakarta.persistence.AttributeOverride;
-import jakarta.persistence.AttributeOverrides;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 
 import java.util.Objects;
 
@@ -45,7 +42,9 @@ import java.util.Objects;
 public class OrderHeader extends BaseEntity {
 
     private String customerName;
+    @Embedded
     private Address shippingAddress;
+    @Embedded
     private Address billToAddress;
 
     public OrderHeader() {
