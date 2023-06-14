@@ -2,6 +2,7 @@ package com.mcfly.order_service_mappings.domain;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -83,6 +84,14 @@ public class OrderHeader extends BaseEntity {
         result = 31 * result + (orderStatus != null ? orderStatus.hashCode() : 0);
         result = 31 * result + (orderLines != null ? orderLines.hashCode() : 0);
         return result;
+    }
+
+    public void addOrderLine(OrderLine orderLine) {
+        if (orderLines == null) {
+            orderLines = new HashSet<>();
+        }
+        orderLines.add(orderLine);
+        orderLine.setOrderHeader(this);
     }
 
     public String getCustomerName() {

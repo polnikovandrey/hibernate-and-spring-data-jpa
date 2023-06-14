@@ -14,8 +14,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.util.Set;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ActiveProfiles("local")
@@ -45,8 +43,7 @@ public class OrderHeaderRepositoryTest {
         final OrderLine orderLine = new OrderLine();
         orderLine.setQuantityOrdered(5);
         orderLine.setProduct(product);
-        orderHeader.setOrderLines(Set.of(orderLine));
-        orderLine.setOrderHeader(orderHeader);
+        orderHeader.addOrderLine(orderLine);
         final OrderHeader savedOrder = orderHeaderRepository.save(orderHeader);
         orderHeaderRepository.flush();
         assertThat(savedOrder).isNotNull();
