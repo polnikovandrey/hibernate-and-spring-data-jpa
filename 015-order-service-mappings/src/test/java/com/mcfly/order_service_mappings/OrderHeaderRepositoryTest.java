@@ -2,7 +2,11 @@ package com.mcfly.order_service_mappings;
 
 import com.mcfly.order_service_mappings.domain.OrderHeader;
 import com.mcfly.order_service_mappings.domain.OrderLine;
+import com.mcfly.order_service_mappings.domain.Product;
+import com.mcfly.order_service_mappings.domain.ProductStatus;
 import com.mcfly.order_service_mappings.repository.OrderHeaderRepository;
+import com.mcfly.order_service_mappings.repository.ProductRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -22,12 +26,25 @@ public class OrderHeaderRepositoryTest {
 
     @Autowired
     OrderHeaderRepository orderHeaderRepository;
+    @Autowired
+    ProductRepository productRepository;
+
+    Product product;
+
+    @BeforeEach
+    void setUp() {
+        final Product newProduct = new Product();
+        newProduct.setProductStatus(ProductStatus.NEW);
+        newProduct.setDescription("Test Product");
+        product = productRepository.saveAndFlush(newProduct);
+    }
 
     @Test
     void testSaveOrderWithLine() {
         final OrderHeader orderHeader = new OrderHeader("Andrey Polnikov");
         final OrderLine orderLine = new OrderLine();
         orderLine.setQuantityOrdered(5);
+        orderLine.setProduct(product);
         orderHeader.setOrderLines(Set.of(orderLine));
         orderLine.setOrderHeader(orderHeader);
         final OrderHeader savedOrder = orderHeaderRepository.save(orderHeader);
