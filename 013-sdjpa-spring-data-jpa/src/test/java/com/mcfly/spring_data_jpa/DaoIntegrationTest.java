@@ -7,13 +7,17 @@ import com.mcfly.spring_data_jpa.dao.BookDaoImpl;
 import com.mcfly.spring_data_jpa.domain.Author;
 import com.mcfly.spring_data_jpa.domain.Book;
 import jakarta.persistence.EntityNotFoundException;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ActiveProfiles;
+
+import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -83,6 +87,55 @@ public class DaoIntegrationTest {
     }
 
     @Test
+    void testFindBooksFirstPage() {
+        final List<Book> books = bookDao.findAllBooks(10, 0);
+        Assertions.assertThat(books).isNotNull();
+        Assertions.assertThat(books.size()).isEqualTo(10);
+    }
+
+    @Test
+    void testFindBooksSecondPage() {
+        final List<Book> books = bookDao.findAllBooks(10, 10);
+        Assertions.assertThat(books).isNotNull();
+        Assertions.assertThat(books.size()).isGreaterThan(0);
+    }
+
+    @Test
+    void testFindBooksTenthPage() {
+        final List<Book> books = bookDao.findAllBooks(10, 100);
+        Assertions.assertThat(books).isNotNull();
+        Assertions.assertThat(books.size()).isEqualTo(0);
+    }
+
+    @Test
+    void testFindBooksFirstPagePageable() {
+        final List<Book> books = bookDao.findAllBooks(PageRequest.of(0, 10));
+        Assertions.assertThat(books).isNotNull();
+        Assertions.assertThat(books.size()).isEqualTo(10);
+    }
+
+    @Test
+    void testFindBooksSecondPagePageable() {
+        final List<Book> books = bookDao.findAllBooks(PageRequest.of(1, 10));
+        Assertions.assertThat(books).isNotNull();
+        Assertions.assertThat(books.size()).isGreaterThan(0);
+    }
+
+    @Test
+    void testFindBooksTenthPagePageable() {
+        final List<Book> books = bookDao.findAllBooks(PageRequest.of(9, 10));
+        Assertions.assertThat(books).isNotNull();
+        Assertions.assertThat(books.size()).isEqualTo(0);
+    }
+
+    @Test
+    void testFindBooksFirstPagePageableSortedByTitle() {
+        final List<Book> books = bookDao.findAllBooksSortByTitle(PageRequest.of(0, 10));
+        Assertions.assertThat(books).isNotNull();
+        Assertions.assertThat(books.size()).isEqualTo(10);
+    }
+
+    @Test
     void testDeleteAuthor() {
         final Author author = new Author();
         author.setFirstName("john");
@@ -123,5 +176,19 @@ public class DaoIntegrationTest {
     void testGetAuthor() {
         final Author author = authorDao.getById(1L);
         assertThat(author).isNotNull();
+    }
+
+    @Test
+    void testFindAuthorsByLastNameSortByFirstNameFirstPage() {
+        final List<Author> smiths = authorDao.findByLastNameSortByFirstName("Smith", PageRequest.of(0, 10));
+        Assertions.assertThat(smiths).isNotNull();
+        Assertions.assertThat(smiths.size()).isEqualTo(10);
+    }
+
+    @Test
+    void testFindAuthorsByLastNameSortByFirstNameSecondPage() {
+        final List<Author> smiths = authorDao.findByLastNameSortByFirstName("Smith", PageRequest.of(1, 10));
+        Assertions.assertThat(smiths).isNotNull();
+        Assertions.assertThat(smiths.size()).isEqualTo(10);
     }
 }

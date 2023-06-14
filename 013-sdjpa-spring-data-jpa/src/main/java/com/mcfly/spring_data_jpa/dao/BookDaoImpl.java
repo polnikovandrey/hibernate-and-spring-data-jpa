@@ -4,7 +4,13 @@ import com.mcfly.spring_data_jpa.domain.Book;
 import com.mcfly.spring_data_jpa.repositories.BookRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class BookDaoImpl implements BookDao {
@@ -44,5 +50,25 @@ public class BookDaoImpl implements BookDao {
     @Override
     public void deleteBookById(Long id) {
         bookRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Book> findAllBooks(int pageSize, int offset) {
+        final PageRequest pageable
+                = PageRequest.ofSize(pageSize)
+                             .withPage(offset > 0 ? (offset / pageSize) : 0);
+        return findAllBooks(pageable);
+    }
+
+    @Override
+    public List<Book> findAllBooks(Pageable pageable) {
+        return bookRepository.findAll(pageable).getContent();
+    }
+
+    @Override
+    public List<Book> findAllBooksSortByTitle(Pageable aPageable) {
+        final Pageable pageable = PageRequest.of(aPageable.getPageNumber(), aPageable.getPageSize(), Sort.by(Sort.Order.desc("title")));
+        final Page<Book> bookPage = bookRepository.findAll(pageable);
+        return bookPage.getContent();
     }
 }

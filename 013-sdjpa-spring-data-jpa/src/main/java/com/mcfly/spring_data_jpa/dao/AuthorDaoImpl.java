@@ -4,7 +4,10 @@ import com.mcfly.spring_data_jpa.domain.Author;
 import com.mcfly.spring_data_jpa.repositories.AuthorRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * Created by jt on 8/28/21.
@@ -46,5 +49,10 @@ public class AuthorDaoImpl implements AuthorDao {
     @Override
     public void deleteAuthorById(Long id) {
         authorRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Author> findByLastNameSortByFirstName(String lastName, Pageable pageable) {
+        return authorRepository.findAuthorsByLastNameOrderByFirstName(lastName, pageable);
     }
 }
