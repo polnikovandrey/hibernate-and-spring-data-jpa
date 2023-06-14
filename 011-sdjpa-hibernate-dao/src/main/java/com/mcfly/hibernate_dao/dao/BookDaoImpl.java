@@ -6,6 +6,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -85,6 +86,30 @@ public class BookDaoImpl implements BookDao {
     @Override
     public List<Book> findAll() {
         final TypedQuery<Book> query = entityManager.createNamedQuery("book_find_all", Book.class);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Book> findAllBooks(int pageSize, int offset) {
+        final TypedQuery<Book> query = entityManager.createQuery("select b from Book b", Book.class);
+        query.setFirstResult(offset);
+        query.setMaxResults(pageSize);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Book> findAllBooks(Pageable pageable) {
+        final TypedQuery<Book> query = entityManager.createQuery("select b from Book b", Book.class);
+        query.setFirstResult(Math.toIntExact(pageable.getOffset()));
+        query.setMaxResults(pageable.getPageSize());
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Book> findAllBooksSortByTitle(Pageable pageable) {
+        final TypedQuery<Book> query = entityManager.createQuery("select b from Book b order by b.title " + pageable.getSort().getOrderFor("title").getDirection(), Book.class);
+        query.setFirstResult(Math.toIntExact(pageable.getOffset()));
+        query.setMaxResults(pageable.getPageSize());
         return query.getResultList();
     }
 }

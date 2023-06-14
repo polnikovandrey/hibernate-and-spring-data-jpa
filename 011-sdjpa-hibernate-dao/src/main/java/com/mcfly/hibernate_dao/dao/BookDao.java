@@ -1,6 +1,7 @@
 package com.mcfly.hibernate_dao.dao;
 
 import com.mcfly.hibernate_dao.domain.Book;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -23,4 +24,12 @@ public interface BookDao {
     Book findByIsbn(String isbn);
 
     List<Book> findAll();
+
+    // Pagination related methods
+
+    List<Book> findAllBooks(int pageSize, int offset);
+
+    List<Book> findAllBooks(Pageable pageable);
+
+    List<Book> findAllBooksSortByTitle(Pageable pageable);
 }
