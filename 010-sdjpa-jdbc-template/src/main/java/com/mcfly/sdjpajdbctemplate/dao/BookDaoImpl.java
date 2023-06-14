@@ -4,6 +4,8 @@ import com.mcfly.sdjpajdbctemplate.domain.Book;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class BookDaoImpl implements BookDao {
 
@@ -39,6 +41,16 @@ public class BookDaoImpl implements BookDao {
     @Override
     public void deleteBookById(Long id) {
         jdbcTemplate.update("delete from book where id = ?", id);
+    }
+
+    @Override
+    public List<Book> findAllBooks() {
+        return jdbcTemplate.query("select * from book", getBookMapper());
+    }
+
+    @Override
+    public List<Book> findAllBooks(int pageSize, int offset) {
+        return jdbcTemplate.query("select * from book limit ? offset ?", getBookMapper(), pageSize, offset);
     }
 
     private BookMapper getBookMapper() {

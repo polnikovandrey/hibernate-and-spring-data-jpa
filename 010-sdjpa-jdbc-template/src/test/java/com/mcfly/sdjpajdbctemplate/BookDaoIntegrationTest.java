@@ -10,6 +10,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -66,5 +68,33 @@ public class BookDaoIntegrationTest {
         bookDao.deleteBookById(createdBook.getId());
         assertThrows(EmptyResultDataAccessException.class, () -> bookDao.getById(createdBook.getId()));
         System.out.println("Deleted book id: " + createdBook.getId());
+    }
+
+    @Test
+    void testFindAllBooks() {
+        final List<Book> books = bookDao.findAllBooks();
+        assertThat(books).isNotNull();
+        assertThat(books.size()).isGreaterThan(0);
+    }
+
+    @Test
+    void testFindBooksFirstPage() {
+        final List<Book> books = bookDao.findAllBooks(10, 0);
+        assertThat(books).isNotNull();
+        assertThat(books.size()).isEqualTo(10);
+    }
+
+    @Test
+    void testFindBooksSecondPage() {
+        final List<Book> books = bookDao.findAllBooks(10, 10);
+        assertThat(books).isNotNull();
+        assertThat(books.size()).isGreaterThan(0);
+    }
+
+    @Test
+    void testFindBooksTenthPage() {
+        final List<Book> books = bookDao.findAllBooks(10, 100);
+        assertThat(books).isNotNull();
+        assertThat(books.size()).isEqualTo(0);
     }
 }

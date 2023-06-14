@@ -40,3 +40,41 @@ insert into author (first_name, last_name) values ('Robert', 'Martin');
 
 insert into book (isbn, publisher, title, author_id) values ('978-0134494166', 'Addison Wesley',
     'Clean Code',(select id from author where first_name = 'Robert' and last_name = 'Martin') );
+
+insert into author (first_name, last_name) values ('Alan', 'Martin');
+
+insert into book (isbn, publisher, title, author_id) values ('978-0134494167', 'Addison Wesley',
+                                                             'Clean Code 1',(select id from author where first_name = 'Alan' and last_name = 'Martin') );
+
+insert into author (first_name, last_name) values ('Bob', 'Martin');
+
+insert into book (isbn, publisher, title, author_id) values ('978-0134494165', 'Addison Wesley',
+                                                             'Clean Code 2',(select id from author where first_name = 'Bob' and last_name = 'Martin') );
+
+insert into author (first_name, last_name) values ('Clark', 'Martin');
+
+insert into book (isbn, publisher, title, author_id) values ('978-0134494132', 'Addison Wesley',
+                                                             'Clean Code 3',(select id from author where first_name = 'Clark' and last_name = 'Martin') );
+
+insert into author (first_name, last_name) values ('Dave', 'Martin');
+
+insert into book (isbn, publisher, title, author_id) values ('978-0134494132', 'Addison Wesley',
+                                                             'Clean Code 3',(select id from author where first_name = 'Clark' and last_name = 'Martin') );
+
+insert into book (isbn, publisher, title, author_id) values ('978-0134494134', 'Addison Wesley',
+                                                             'Clean Code 4',(select id from author where first_name = 'Clark' and last_name = 'Martin') );
+
+insert into book (isbn, publisher, title, author_id) values ('978-0134494128', 'Addison Wesley',
+                                                             'Clean Code 5',(select id from author where first_name = 'Clark' and last_name = 'Martin') );
+
+insert into book (isbn, publisher, title, author_id) values ('978-0134494116', 'Addison Wesley',
+                                                             'Clean Code 6',(select id from author where first_name = 'Clark' and last_name = 'Martin') );
+
+insert into book (isbn, publisher, title, author_id) values ('978-0134494192', 'Addison Wesley',
+                                                             'Clean Code 7',(select id from author where first_name = 'Clark' and last_name = 'Martin') );
+
+insert into book (isbn, publisher, title, author_id) values ('978-0134494175', 'Addison Wesley',
+                                                             'Clean Code 8',(select id from author where first_name = 'Clark' and last_name = 'Martin') );
+
+insert into book (isbn, publisher, title, author_id) values ('978-01344941343', 'Addison Wesley',
+                                                             'Clean Code 9',(select id from author where first_name = 'Clark' and last_name = 'Martin') );
