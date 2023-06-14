@@ -7,6 +7,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
+@Table(name = "order_header")
 @AttributeOverrides({
         @AttributeOverride(
                 name = "shippingAddress.address",
