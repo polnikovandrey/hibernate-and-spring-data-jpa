@@ -59,6 +59,11 @@ public class BookDaoImpl implements BookDao {
         return jdbcTemplate.query("select * from book limit ? offset ?", getBookMapper(), pageable.getPageSize(), pageable.getOffset());
     }
 
+    @Override
+    public List<Book> findAllBooksSortByTitle(Pageable pageable) {
+        return jdbcTemplate.query("select * from book order by title " + pageable.getSort().getOrderFor("title").getDirection() + " limit ? offset ?", getBookMapper(), pageable.getPageSize(), pageable.getOffset());
+    }
+
     private BookMapper getBookMapper() {
         return new BookMapper();
     }

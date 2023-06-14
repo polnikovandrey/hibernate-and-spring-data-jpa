@@ -8,7 +8,8 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
@@ -101,22 +102,29 @@ public class BookDaoIntegrationTest {
 
     @Test
     void testFindBooksFirstPagePageable() {
-        final List<Book> books = bookDao.findAllBooks(Pageable.ofSize(10).withPage(0));
+        final List<Book> books = bookDao.findAllBooks(PageRequest.of(0, 10));
         assertThat(books).isNotNull();
         assertThat(books.size()).isEqualTo(10);
     }
 
     @Test
     void testFindBooksSecondPagePageable() {
-        final List<Book> books = bookDao.findAllBooks(Pageable.ofSize(10).withPage(1));
+        final List<Book> books = bookDao.findAllBooks(PageRequest.of(1, 10));
         assertThat(books).isNotNull();
         assertThat(books.size()).isGreaterThan(0);
     }
 
     @Test
     void testFindBooksTenthPagePageable() {
-        final List<Book> books = bookDao.findAllBooks(Pageable.ofSize(10).withPage(9));
+        final List<Book> books = bookDao.findAllBooks(PageRequest.of(9, 10));
         assertThat(books).isNotNull();
         assertThat(books.size()).isEqualTo(0);
+    }
+
+    @Test
+    void testFindBooksFirstPagePageableSortedByTitle() {
+        final List<Book> books = bookDao.findAllBooksSortByTitle(PageRequest.of(0, 10, Sort.by(Sort.Order.desc("title"))));
+        assertThat(books).isNotNull();
+        assertThat(books.size()).isEqualTo(10);
     }
 }
