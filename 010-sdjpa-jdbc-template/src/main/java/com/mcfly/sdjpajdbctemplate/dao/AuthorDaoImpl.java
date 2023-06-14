@@ -1,8 +1,12 @@
 package com.mcfly.sdjpajdbctemplate.dao;
 
 import com.mcfly.sdjpajdbctemplate.domain.Author;
+import org.springframework.data.domain.Pageable;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class AuthorDaoImpl implements AuthorDao {
@@ -41,5 +45,25 @@ public class AuthorDaoImpl implements AuthorDao {
     @Override
     public void deleteAuthorById(Long id) {
         jdbcTemplate.update("delete from author where id = ?", id);
+    }
+
+    @Override
+    public List<Author> findByLastName(String lastName) {
+        return jdbcTemplate.query("select * from author where last_name = ?", getSimpleRowMapper(), lastName);
+    }
+
+    @Override
+    public List<Author> findByLastNameSortByFirstName(String lastName, Pageable pageable) {
+        return jdbcTemplate.query("select * from author where last_name = ? order by first_name " + pageable.getSort().getOrderFor("first_name").getDirection() + " limit ? offset ?", getSimpleRowMapper(), lastName, pageable.getPageSize(), pageable.getOffset());
+    }
+
+    private RowMapper<Author> getSimpleRowMapper() {
+        return (rs, rowNum) -> {
+            final Author author = new Author();
+            author.setId(rs.getLong("id"));
+            author.setFirstName(rs.getString("first_name"));
+            author.setLastName(rs.getString("last_name"));
+            return author;
+        };
     }
 }
