@@ -4,10 +4,12 @@ import com.mcfly.order_service_mappings.domain.*;
 import com.mcfly.order_service_mappings.repository.CustomerRepository;
 import com.mcfly.order_service_mappings.repository.OrderHeaderRepository;
 import com.mcfly.order_service_mappings.repository.ProductRepository;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.ArrayList;
@@ -32,6 +34,8 @@ public class DataLoadTest {
     @Autowired
     ProductRepository productRepository;
 
+    @Disabled
+    @Commit
     @Test
     void testDataLoader() {
         final List<Product> products = loadProducts();
