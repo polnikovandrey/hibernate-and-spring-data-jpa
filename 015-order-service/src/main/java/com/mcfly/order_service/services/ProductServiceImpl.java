@@ -4,6 +4,7 @@ import com.mcfly.order_service.domain.Product;
 import com.mcfly.order_service.repository.ProductRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -19,6 +20,7 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.saveAndFlush(product);
     }
 
+    @Transactional
     @Override
     public Product updateQualityOnHand(Long id, Integer qualityOnHand) {
         final Product found = productRepository.findById(id).orElseThrow(EntityNotFoundException::new);
