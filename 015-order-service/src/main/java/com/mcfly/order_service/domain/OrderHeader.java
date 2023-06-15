@@ -60,6 +60,8 @@ public class OrderHeader extends BaseEntity {
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @Fetch(FetchMode.SELECT)
     private OrderApproval orderApproval;
+    @Version
+    private Integer version;
 
     public OrderHeader() {
     }
@@ -149,5 +151,13 @@ public class OrderHeader extends BaseEntity {
     public void setOrderApproval(OrderApproval orderApproval) {
         this.orderApproval = orderApproval;
         orderApproval.setOrderHeader(this);
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 }

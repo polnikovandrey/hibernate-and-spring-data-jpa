@@ -55,6 +55,7 @@ public class DataLoadTest {
         System.out.println("Customer name is: " + orderHeader.getCustomer().getCustomerName());
     }
 
+    // TODO should be executed at least one time before other tests to fill test data.
     @Disabled
     @Commit
     @Test
