@@ -2,6 +2,7 @@ package com.mcfly.order_service_mappings;
 
 import com.mcfly.order_service_mappings.domain.*;
 import com.mcfly.order_service_mappings.repository.CustomerRepository;
+import com.mcfly.order_service_mappings.repository.OrderApprovalRepository;
 import com.mcfly.order_service_mappings.repository.OrderHeaderRepository;
 import com.mcfly.order_service_mappings.repository.ProductRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,6 +27,8 @@ public class OrderHeaderRepositoryTest {
     ProductRepository productRepository;
     @Autowired
     CustomerRepository customerRepository;
+    @Autowired
+    OrderApprovalRepository orderApprovalRepository;
 
     Product product;
 
@@ -50,6 +53,11 @@ public class OrderHeaderRepositoryTest {
         orderLine.setQuantityOrdered(5);
         orderLine.setProduct(product);
         orderHeader.addOrderLine(orderLine);
+
+        final OrderApproval orderApproval = new OrderApproval("me");
+        final OrderApproval savedOrderApproval = orderApprovalRepository.save(orderApproval);
+        orderHeader.setOrderApproval(savedOrderApproval);
+
         final OrderHeader savedOrder = orderHeaderRepository.save(orderHeader);
         orderHeaderRepository.flush();
         assertThat(savedOrder).isNotNull();
