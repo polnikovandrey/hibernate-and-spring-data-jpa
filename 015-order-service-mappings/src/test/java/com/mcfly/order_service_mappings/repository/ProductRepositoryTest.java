@@ -1,8 +1,7 @@
-package com.mcfly.order_service_mappings;
+package com.mcfly.order_service_mappings.repository;
 
 import com.mcfly.order_service_mappings.domain.Product;
 import com.mcfly.order_service_mappings.domain.ProductStatus;
-import com.mcfly.order_service_mappings.repository.ProductRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -36,7 +35,7 @@ public class ProductRepositoryTest {
 
     @Test
     void testGetCategory() {
-        final Product product = productRepository.findByDescription("PRODUCT1");
+        final Product product = productRepository.findByDescription("PRODUCT1").orElse(null);
         assertThat(product).isNotNull();
         assertThat(product.getCategories()).isNotNull();
     }

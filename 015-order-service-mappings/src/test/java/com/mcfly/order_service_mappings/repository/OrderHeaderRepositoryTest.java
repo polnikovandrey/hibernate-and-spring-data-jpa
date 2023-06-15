@@ -1,9 +1,6 @@
-package com.mcfly.order_service_mappings;
+package com.mcfly.order_service_mappings.repository;
 
 import com.mcfly.order_service_mappings.domain.*;
-import com.mcfly.order_service_mappings.repository.CustomerRepository;
-import com.mcfly.order_service_mappings.repository.OrderHeaderRepository;
-import com.mcfly.order_service_mappings.repository.ProductRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
