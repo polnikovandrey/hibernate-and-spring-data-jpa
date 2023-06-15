@@ -1,2 +1,4 @@
-alter table order_header add column version integer default 0;
-alter table order_line add column version integer default 0;
+alter table order_header add column version integer;
+alter table order_line add column version integer;
+update order_header set version = 0;
+update order_line set version = 0;
