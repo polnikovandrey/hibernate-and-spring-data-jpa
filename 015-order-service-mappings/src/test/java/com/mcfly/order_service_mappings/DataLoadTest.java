@@ -69,7 +69,7 @@ public class DataLoadTest {
         orderHeaderRepository.flush();
     }
 
-    private OrderHeader saveOrder(Customer customer, List<Product> products) {
+    private void saveOrder(Customer customer, List<Product> products) {
         final Random random = new Random();
         final OrderHeader orderHeader = new OrderHeader();
         orderHeader.setCustomer(customer);
@@ -79,19 +79,19 @@ public class DataLoadTest {
             orderLine.setQuantityOrdered(random.nextInt(20));
             orderHeader.addOrderLine(orderLine);
         });
-        return orderHeaderRepository.save(orderHeader);
+        orderHeaderRepository.save(orderHeader);
     }
 
 
     private Customer loadCustomers() {
-        return getOrSaveCustomer(TEST_CUSTOMER);
+        return getOrSaveCustomer();
     }
 
-    private Customer getOrSaveCustomer(String customerName) {
-        return customerRepository.findCustomerByCustomerNameIgnoreCase(customerName)
+    private Customer getOrSaveCustomer() {
+        return customerRepository.findCustomerByCustomerNameIgnoreCase(DataLoadTest.TEST_CUSTOMER)
                 .orElseGet(() -> {
                     final Customer c1 = new Customer();
-                    c1.setCustomerName(customerName);
+                    c1.setCustomerName(DataLoadTest.TEST_CUSTOMER);
                     c1.setEmail("test@example.com");
                     final Address address = new Address();
                     address.setAddress("123 Main");
