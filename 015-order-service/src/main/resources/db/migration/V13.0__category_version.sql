@@ -1,1 +1,1 @@
-alter table customer add column version integer;
+alter table customer add column version integer default 0;
