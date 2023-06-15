@@ -20,10 +20,10 @@ import java.util.stream.IntStream;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class DataLoadTest {
 
-    private final String PRODUCT_D1 = "Product 1";
-    private final String PRODUCT_D2 = "Product 2";
-    private final String PRODUCT_D3 = "Product 3";
-    private final String TEST_CUSTOMER = "Test customer";
+    private static final String PRODUCT_D1 = "Product 1";
+    private static final String PRODUCT_D2 = "Product 2";
+    private static final String PRODUCT_D3 = "Product 3";
+    private static final String TEST_CUSTOMER = "Test customer";
 
     @Autowired
     OrderHeaderRepository orderHeaderRepository;
