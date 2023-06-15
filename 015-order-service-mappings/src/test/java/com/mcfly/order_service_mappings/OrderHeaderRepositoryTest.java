@@ -89,6 +89,10 @@ public class OrderHeaderRepositoryTest {
         final OrderLine orderLine = new OrderLine();
         orderLine.setQuantityOrdered(3);
         orderLine.setProduct(product);
+
+        final OrderApproval orderApproval = new OrderApproval("me");
+        orderHeader.setOrderApproval(orderApproval);
+
         orderHeader.addOrderLine(orderLine);
         final OrderHeader savedOrder = orderHeaderRepository.saveAndFlush(orderHeader);
         System.out.println("Order saved and flushed");
