@@ -20,13 +20,17 @@ public class Bootstrap implements CommandLineRunner {
         this.orderHeaderRepository = orderHeaderRepository;
     }
 
-    @Transactional      // Without @Transactional orderLine.getProduct().getCategories() will fail.
+    @Transactional
     @Override
     public void run(String... args) {
         final OrderHeader orderHeader = orderHeaderRepository.findById(1L).orElseThrow(EntityNotFoundException::new);
         orderHeader.getOrderLines()
                    .forEach(orderLine -> {
                        LOGGER.info(orderLine.getProduct().getDescription());
+                       /*
+                            orderLine.getProduct().getCategories() will fail without @Transactional on method:
+                             field categories is LAZY, could be fetched within a hibernate session (transaction) only.
+                        */
                        orderLine.getProduct()
                                 .getCategories()
                                 .forEach(category -> LOGGER.info(category.getDescription()));
