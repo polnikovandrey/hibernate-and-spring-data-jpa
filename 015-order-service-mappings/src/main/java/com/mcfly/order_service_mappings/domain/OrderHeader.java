@@ -44,7 +44,8 @@ import java.util.Set;
 })
 public class OrderHeader extends BaseEntity {
 
-    private String customerName;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private Customer customer;
     @Embedded
     private Address shippingAddress;
     @Embedded
@@ -57,8 +58,8 @@ public class OrderHeader extends BaseEntity {
     public OrderHeader() {
     }
 
-    public OrderHeader(String customerName) {
-        this.customerName = customerName;
+    public OrderHeader(Customer customer) {
+        this.customer = customer;
     }
 
     @Override
@@ -67,7 +68,7 @@ public class OrderHeader extends BaseEntity {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         OrderHeader that = (OrderHeader) o;
-        if (!Objects.equals(customerName, that.customerName)) return false;
+        if (!Objects.equals(customer, that.customer)) return false;
         if (!Objects.equals(shippingAddress, that.shippingAddress))
             return false;
         if (!Objects.equals(billToAddress, that.billToAddress))
@@ -79,7 +80,7 @@ public class OrderHeader extends BaseEntity {
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + (customerName != null ? customerName.hashCode() : 0);
+        result = 31 * result + (customer != null ? customer.hashCode() : 0);
         result = 31 * result + (shippingAddress != null ? shippingAddress.hashCode() : 0);
         result = 31 * result + (billToAddress != null ? billToAddress.hashCode() : 0);
         result = 31 * result + (orderStatus != null ? orderStatus.hashCode() : 0);
@@ -95,12 +96,12 @@ public class OrderHeader extends BaseEntity {
         orderLine.setOrderHeader(this);
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public Address getShippingAddress() {

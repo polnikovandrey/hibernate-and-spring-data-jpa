@@ -12,6 +12,16 @@ public class Address {
     private String state;
     private String zipCode;
 
+    public Address() {
+    }
+
+    public Address(String address, String city, String state, String zipCode) {
+        this.address = address;
+        this.city = city;
+        this.state = state;
+        this.zipCode = zipCode;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

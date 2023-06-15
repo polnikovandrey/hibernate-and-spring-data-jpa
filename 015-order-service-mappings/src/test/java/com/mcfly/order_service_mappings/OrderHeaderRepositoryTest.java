@@ -1,9 +1,7 @@
 package com.mcfly.order_service_mappings;
 
-import com.mcfly.order_service_mappings.domain.OrderHeader;
-import com.mcfly.order_service_mappings.domain.OrderLine;
-import com.mcfly.order_service_mappings.domain.Product;
-import com.mcfly.order_service_mappings.domain.ProductStatus;
+import com.mcfly.order_service_mappings.domain.*;
+import com.mcfly.order_service_mappings.repository.CustomerRepository;
 import com.mcfly.order_service_mappings.repository.OrderHeaderRepository;
 import com.mcfly.order_service_mappings.repository.ProductRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,6 +24,8 @@ public class OrderHeaderRepositoryTest {
     OrderHeaderRepository orderHeaderRepository;
     @Autowired
     ProductRepository productRepository;
+    @Autowired
+    CustomerRepository customerRepository;
 
     Product product;
 
@@ -39,7 +39,13 @@ public class OrderHeaderRepositoryTest {
 
     @Test
     void testSaveOrderWithLine() {
-        final OrderHeader orderHeader = new OrderHeader("Andrey Polnikov");
+        final Address address = new Address("Test address", "Test city", "Test state", "Test zipCode");
+        final Customer customer = new Customer("Andrey Polnikov", address, "789-123-456", "email@gmail.com");
+        final Customer savedCustomer = customerRepository.save(customer);
+        final OrderHeader orderHeader = new OrderHeader(savedCustomer);
+        orderHeader.setShippingAddress(new Address("Test shipping address", "Test shipping city", "Test shipping state", "Test shipping zipCode"));
+        orderHeader.setBillToAddress(new Address("Test billing address", "Test billing city", "Test billing state", "Test billing zipCode"));
+        orderHeader.setOrderStatus(OrderStatus.NEW);
         final OrderLine orderLine = new OrderLine();
         orderLine.setQuantityOrdered(5);
         orderLine.setProduct(product);
@@ -57,7 +63,10 @@ public class OrderHeaderRepositoryTest {
 
     @Test
     void testPersistNewOrderHeader() {
-        final OrderHeader orderHeader = new OrderHeader("Andrey Polnikov");
+        final Address address = new Address("Test address", "Test city", "Test state", "Test zipCode");
+        final Customer customer = new Customer("Andrey Polnikov", address, "789-123-456", "email@gmail.com");
+        final Customer savedCustomer = customerRepository.save(customer);
+        final OrderHeader orderHeader = new OrderHeader(savedCustomer);
         final OrderHeader saved = orderHeaderRepository.save(orderHeader);
         orderHeaderRepository.flush();
         final OrderHeader found = orderHeaderRepository.getReferenceById(saved.getId());
