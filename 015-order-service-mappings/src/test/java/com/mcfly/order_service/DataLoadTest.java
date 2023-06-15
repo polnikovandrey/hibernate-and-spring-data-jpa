@@ -1,9 +1,9 @@
-package com.mcfly.order_service_mappings;
+package com.mcfly.order_service;
 
-import com.mcfly.order_service_mappings.domain.*;
-import com.mcfly.order_service_mappings.repository.CustomerRepository;
-import com.mcfly.order_service_mappings.repository.OrderHeaderRepository;
-import com.mcfly.order_service_mappings.repository.ProductRepository;
+import com.mcfly.order_service.domain.*;
+import com.mcfly.order_service.repository.CustomerRepository;
+import com.mcfly.order_service.repository.OrderHeaderRepository;
+import com.mcfly.order_service.repository.ProductRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;

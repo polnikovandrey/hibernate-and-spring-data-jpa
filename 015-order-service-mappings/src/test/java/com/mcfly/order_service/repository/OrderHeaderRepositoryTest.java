@@ -1,6 +1,6 @@
-package com.mcfly.order_service_mappings.repository;
+package com.mcfly.order_service.repository;
 
-import com.mcfly.order_service_mappings.domain.*;
+import com.mcfly.order_service.domain.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @ActiveProfiles("local")
 @DataJpaTest
-@ComponentScan(basePackages = {"com.mcfly.oder_service_mappings"})
+@ComponentScan(basePackages = {"com.mcfly.oder_service"})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class OrderHeaderRepositoryTest {
 

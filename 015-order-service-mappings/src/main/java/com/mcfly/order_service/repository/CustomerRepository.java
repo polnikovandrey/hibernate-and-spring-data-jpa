@@ -1,6 +1,6 @@
-package com.mcfly.order_service_mappings.repository;
+package com.mcfly.order_service.repository;
 
-import com.mcfly.order_service_mappings.domain.Customer;
+import com.mcfly.order_service.domain.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

@@ -1,4 +1,4 @@
-package com.mcfly.order_service_mappings.domain;
+package com.mcfly.order_service.domain;
 
 import jakarta.persistence.Embeddable;
 

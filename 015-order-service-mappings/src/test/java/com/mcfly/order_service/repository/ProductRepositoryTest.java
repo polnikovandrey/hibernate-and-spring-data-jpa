@@ -1,7 +1,7 @@
-package com.mcfly.order_service_mappings.repository;
+package com.mcfly.order_service.repository;
 
-import com.mcfly.order_service_mappings.domain.Product;
-import com.mcfly.order_service_mappings.domain.ProductStatus;
+import com.mcfly.order_service.domain.Product;
+import com.mcfly.order_service.domain.ProductStatus;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @ActiveProfiles("local")
 @DataJpaTest
-@ComponentScan(basePackages = "com.mcfly.order_service_mappings")
+@ComponentScan(basePackages = "com.mcfly.order_service")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class ProductRepositoryTest {
 
