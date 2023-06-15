@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.mcfly</groupId>
-    <artifactId>order-service-mappings</artifactId>
+    <artifactId>order-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>order-service-mappings</name>
-    <description>order-service-mappings</description>
+    <name>order-service</name>
+    <description>order-service</description>
     <properties>
         <java.version>17</java.version>
     </properties>
