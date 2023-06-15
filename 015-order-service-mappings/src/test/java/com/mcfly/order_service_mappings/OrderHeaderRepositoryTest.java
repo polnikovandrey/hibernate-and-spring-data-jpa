@@ -2,7 +2,6 @@ package com.mcfly.order_service_mappings;
 
 import com.mcfly.order_service_mappings.domain.*;
 import com.mcfly.order_service_mappings.repository.CustomerRepository;
-import com.mcfly.order_service_mappings.repository.OrderApprovalRepository;
 import com.mcfly.order_service_mappings.repository.OrderHeaderRepository;
 import com.mcfly.order_service_mappings.repository.ProductRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,8 +26,6 @@ public class OrderHeaderRepositoryTest {
     ProductRepository productRepository;
     @Autowired
     CustomerRepository customerRepository;
-    @Autowired
-    OrderApprovalRepository orderApprovalRepository;
 
     Product product;
 
