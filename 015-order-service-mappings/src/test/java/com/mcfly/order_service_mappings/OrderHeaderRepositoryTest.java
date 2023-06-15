@@ -80,4 +80,22 @@ public class OrderHeaderRepositoryTest {
         assertThat(found.getLastModifiedDate()).isNotNull();
     }
 
+    @Test
+    void testDeleteCascade() {
+        final OrderHeader orderHeader = new OrderHeader();
+        final Customer customer = new Customer();
+        customer.setCustomerName("New customer");
+        orderHeader.setCustomer(customer);
+        final OrderLine orderLine = new OrderLine();
+        orderLine.setQuantityOrdered(3);
+        orderLine.setProduct(product);
+        orderHeader.addOrderLine(orderLine);
+        final OrderHeader savedOrder = orderHeaderRepository.saveAndFlush(orderHeader);
+        System.out.println("Order saved and flushed");
+        orderHeaderRepository.deleteById(savedOrder.getId());
+        orderHeaderRepository.flush();
+        final OrderHeader deletedNotFoundOrder = orderHeaderRepository.findById(savedOrder.getId()).orElse(null);
+        assertThat(deletedNotFoundOrder).isNull();
+    }
+
 }
