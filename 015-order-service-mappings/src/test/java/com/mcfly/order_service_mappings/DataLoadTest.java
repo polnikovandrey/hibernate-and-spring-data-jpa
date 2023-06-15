@@ -4,6 +4,7 @@ import com.mcfly.order_service_mappings.domain.*;
 import com.mcfly.order_service_mappings.repository.CustomerRepository;
 import com.mcfly.order_service_mappings.repository.OrderHeaderRepository;
 import com.mcfly.order_service_mappings.repository.ProductRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,19 @@ public class DataLoadTest {
     CustomerRepository customerRepository;
     @Autowired
     ProductRepository productRepository;
+
+    @Test
+    void testDbLock() {
+        // Use "select for update" query in manual commit mode. order_header table update will be blocked until query was not committed.
+        // select * from order_header where id = 1 for update;
+        final Long id = 1L;
+        final OrderHeader orderHeader = orderHeaderRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        final Address billTo = new Address();
+        billTo.setAddress("Bill me");
+        orderHeader.setBillToAddress(billTo);
+        orderHeaderRepository.saveAndFlush(orderHeader);
+        System.out.println("I updated the order");
+    }
 
     @Test
     void testLazyVsEager() {
