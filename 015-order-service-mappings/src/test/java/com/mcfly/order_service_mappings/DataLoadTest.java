@@ -34,6 +34,13 @@ public class DataLoadTest {
     @Autowired
     ProductRepository productRepository;
 
+    @Test
+    void testLazyVsEager() {
+        final OrderHeader orderHeader = orderHeaderRepository.getReferenceById(1L);
+        System.out.println("Order id: " + orderHeader.getId());
+        System.out.println("Customer name is: " + orderHeader.getCustomer().getCustomerName());
+    }
+
     @Disabled
     @Commit
     @Test

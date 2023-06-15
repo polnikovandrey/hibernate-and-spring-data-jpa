@@ -44,7 +44,7 @@ import java.util.Set;
 })
 public class OrderHeader extends BaseEntity {
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private Customer customer;
     @Embedded
     private Address shippingAddress;
