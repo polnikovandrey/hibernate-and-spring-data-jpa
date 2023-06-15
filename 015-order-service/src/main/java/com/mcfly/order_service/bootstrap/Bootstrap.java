@@ -2,6 +2,7 @@ package com.mcfly.order_service.bootstrap;
 
 import com.mcfly.order_service.domain.Customer;
 import com.mcfly.order_service.repository.CustomerRepository;
+import com.mcfly.order_service.services.BootstrapOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

@@ -1,4 +1,4 @@
-package com.mcfly.order_service.bootstrap;
+package com.mcfly.order_service.services;
 
 import com.mcfly.order_service.domain.OrderHeader;
 import com.mcfly.order_service.repository.OrderHeaderRepository;

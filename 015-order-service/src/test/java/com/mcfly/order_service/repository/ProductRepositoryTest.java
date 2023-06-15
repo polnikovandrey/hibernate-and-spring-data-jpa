@@ -2,7 +2,7 @@ package com.mcfly.order_service.repository;
 
 import com.mcfly.order_service.domain.Product;
 import com.mcfly.order_service.domain.ProductStatus;
-import jakarta.persistence.EntityNotFoundException;
+import com.mcfly.order_service.services.ProductService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -14,12 +14,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @ActiveProfiles("local")
 @DataJpaTest
-@ComponentScan(basePackages = "com.mcfly.order_service")
+@ComponentScan(basePackageClasses = {ProductService.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class ProductRepositoryTest {
 
     @Autowired
     ProductRepository productRepository;
+    @Autowired
+    ProductService productService;
 
     @Test
     void testSaveNewProduct() {
@@ -44,16 +46,9 @@ public class ProductRepositoryTest {
     @Test
     void testSetAndUpdateProductQuantityOnHand() {
         final Product product = new Product("Test product", ProductStatus.NEW);
-        final Product savedProduct = productRepository.save(product);
-        savedProduct.setQuantityOnHand(15);
-        final Product productWithNewQuantity = productRepository.save(savedProduct);
-        assertThat(productWithNewQuantity.getQuantityOnHand()).isEqualTo(15);
-        productWithNewQuantity.setQuantityOnHand(20);
-        final Product productWithUpdatedQuantity = productRepository.save(productWithNewQuantity);
-        productRepository.flush();
-        final Product actualProduct
-                = productRepository.findById(productWithUpdatedQuantity.getId())
-                                   .orElseThrow(EntityNotFoundException::new);
-        assertThat(actualProduct.getQuantityOnHand()).isEqualTo(20);
+        final Product savedProduct = productService.saveProduct(product);
+        final Product savedProduct2 = productService.updateQualityOnHand(savedProduct.getId(), 25);
+        assertThat(savedProduct2.getQuantityOnHand()).isEqualTo(25);
+        System.out.println("Actual product quantity on hand: " + savedProduct2.getQuantityOnHand());
     }
 }
