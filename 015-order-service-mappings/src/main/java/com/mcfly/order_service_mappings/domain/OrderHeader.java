@@ -3,7 +3,6 @@ package com.mcfly.order_service_mappings.domain;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -59,7 +58,6 @@ public class OrderHeader extends BaseEntity {
     private OrderApproval orderApproval;
 
     public OrderHeader() {
-        this.orderLines = new LinkedHashSet<>();
     }
 
     public OrderHeader(Customer customer) {

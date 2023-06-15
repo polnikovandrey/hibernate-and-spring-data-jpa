@@ -56,7 +56,7 @@ public class DataLoadTest {
             final OrderLine orderLine = new OrderLine();
             orderLine.setProduct(product);
             orderLine.setQuantityOrdered(random.nextInt(20));
-            orderHeader.getOrderLines().add(orderLine);
+            orderHeader.addOrderLine(orderLine);
         });
         return orderHeaderRepository.save(orderHeader);
     }
