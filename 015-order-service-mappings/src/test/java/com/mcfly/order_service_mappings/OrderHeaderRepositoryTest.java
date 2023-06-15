@@ -53,11 +53,8 @@ public class OrderHeaderRepositoryTest {
         orderLine.setQuantityOrdered(5);
         orderLine.setProduct(product);
         orderHeader.addOrderLine(orderLine);
-
         final OrderApproval orderApproval = new OrderApproval("me");
-        final OrderApproval savedOrderApproval = orderApprovalRepository.save(orderApproval);
-        orderHeader.setOrderApproval(savedOrderApproval);
-
+        orderHeader.setOrderApproval(orderApproval);
         final OrderHeader savedOrder = orderHeaderRepository.save(orderHeader);
         orderHeaderRepository.flush();
         assertThat(savedOrder).isNotNull();
@@ -67,6 +64,9 @@ public class OrderHeaderRepositoryTest {
         final OrderHeader fetchedOrder = orderHeaderRepository.getReferenceById(savedOrder.getId());
         assertThat(fetchedOrder).isNotNull();
         assertThat(fetchedOrder.getOrderLines().size()).isEqualTo(1);
+        assertThat(fetchedOrder.getOrderApproval()).isNotNull();
+        assertThat(fetchedOrder.getOrderApproval().getId()).isNotNull();
+        assertThat(fetchedOrder.getOrderApproval().getApprovedBy()).isEqualTo(orderApproval.getApprovedBy());
     }
 
     @Test

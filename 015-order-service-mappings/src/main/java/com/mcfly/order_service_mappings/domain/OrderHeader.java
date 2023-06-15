@@ -54,7 +54,7 @@ public class OrderHeader extends BaseEntity {
     private OrderStatus orderStatus;
     @OneToMany(mappedBy = "orderHeader", cascade = CascadeType.PERSIST)
     private Set<OrderLine> orderLines;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private OrderApproval orderApproval;
 
     public OrderHeader() {
