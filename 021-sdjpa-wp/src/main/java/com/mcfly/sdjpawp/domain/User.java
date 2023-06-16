@@ -14,32 +14,32 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "user_login")
     @Size(max = 60)
+    @Column(name = "user_login", length = 60)
     private String login;
-    @Column(name = "user_pass")
     @Size(max = 255)
+    @Column(name = "user_pass")
     private String password;
-    @Column(name = "user_nicename")
     @Size(max = 50)
+    @Column(name = "user_nicename", length = 50)
     private String nicename;
-    @Column(name = "user_email")
-    @Size(max = 100)
     @Email
-    private String email;
-    @Column(name = "user_url")
     @Size(max = 100)
+    @Column(name = "user_email", length = 100)
+    private String email;
     @URL
+    @Size(max = 100)
+    @Column(name = "user_url", length = 100)
     private String url;
     @Column(name = "user_registered")
     private Timestamp registered;
-    @Column(name = "user_activation_key")
     @Size(max = 255)
+    @Column(name = "user_activation_key")
     private String activationKey;
     @Column(name = "user_status")
     private Integer status;
-    @Column(name = "display_name", nullable = false)
     @Size(max = 250)
+    @Column(name = "display_name", nullable = false, length = 250)
     private String displayName;
 
     public Long getId() {
