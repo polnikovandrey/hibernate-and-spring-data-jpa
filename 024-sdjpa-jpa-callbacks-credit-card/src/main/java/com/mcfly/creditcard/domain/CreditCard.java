@@ -13,7 +13,6 @@ public class CreditCard {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @EncryptedString
     private String creditCardNumber;
 
     @Convert(converter = CvvConverter.class)
