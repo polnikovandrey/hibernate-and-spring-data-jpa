@@ -1,13 +1,13 @@
-package com.mcfly.sdjpaintro;
+package com.mcfly.sdjpajdbc;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SdjpaIntroApplication {
+public class JdbcApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SdjpaIntroApplication.class, args);
+		SpringApplication.run(JdbcApplication.class, args);
 	}
 
 }

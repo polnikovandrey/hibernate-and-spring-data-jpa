@@ -1,13 +1,13 @@
-package com.mcfly.sdjpajdbctemplate;
+package com.mcfly.hibernate_dao;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SdjpaJdbcTemplateApplication {
+public class HibernateDaoApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SdjpaJdbcTemplateApplication.class, args);
+        SpringApplication.run(HibernateDaoApplication.class, args);
     }
 
 }

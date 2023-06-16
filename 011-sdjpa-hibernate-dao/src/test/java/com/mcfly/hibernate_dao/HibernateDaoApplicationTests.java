@@ -1,12 +1,12 @@
-package com.mcfly.sdjpajdbctemplate;
+package com.mcfly.hibernate_dao;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@Disabled
+@Disabled // no h2 context in project
 @SpringBootTest
-class SdjpaJdbcTemplateApplicationTests {
+class HibernateDaoApplicationTests {
 
 	@Test
 	void contextLoads() {
