@@ -1,5 +1,6 @@
 package com.mcfly.creditcard.interceptors;
 
+import com.mcfly.creditcard.domain.EncryptedString;
 import com.mcfly.creditcard.services.EncryptionService;
 import org.hibernate.CallbackException;
 import org.hibernate.Interceptor;

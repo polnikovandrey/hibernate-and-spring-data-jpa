@@ -1,5 +1,6 @@
 package com.mcfly.creditcard.listeners;
 
+import com.mcfly.creditcard.domain.EncryptedString;
 import com.mcfly.creditcard.services.EncryptionService;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.ReflectionUtils;

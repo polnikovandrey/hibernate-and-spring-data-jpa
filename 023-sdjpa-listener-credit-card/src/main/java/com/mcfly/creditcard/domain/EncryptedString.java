@@ -1,4 +1,4 @@
-package com.mcfly.creditcard.interceptors;
+package com.mcfly.creditcard.domain;
 
 import java.lang.annotation.*;
 

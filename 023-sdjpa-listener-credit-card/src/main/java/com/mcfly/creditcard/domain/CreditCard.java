@@ -1,6 +1,5 @@
 package com.mcfly.creditcard.domain;
 
-import com.mcfly.creditcard.listeners.EncryptedString;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

@@ -1,4 +1,4 @@
-package com.mcfly.creditcard.listeners;
+package com.mcfly.creditcard.domain;
 
 import java.lang.annotation.*;
 
