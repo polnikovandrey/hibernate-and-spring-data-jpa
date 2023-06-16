@@ -16,6 +16,7 @@ public class CreditCard {
     @EncryptedString
     private String creditCardNumber;
 
+    @Convert(converter = CvvConverter.class)
     private String cvv;
 
     private String expirationDate;
