@@ -41,6 +41,6 @@ public class ListenerRegistration implements BeanPostProcessor {
             registry.appendListeners(EventType.PRE_INSERT, preInsertListener);
             registry.appendListeners(EventType.PRE_UPDATE, preUpdateListener);
         }
-        return BeanPostProcessor.super.postProcessAfterInitialization(bean, beanName);
+        return bean;
     }
 }
