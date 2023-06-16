@@ -19,6 +19,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
     @Size(max = 60)
     @Column(name = "user_login", length = 60)
@@ -48,9 +49,11 @@ public class User {
     @Column(name = "display_name", nullable = false, length = 250)
     private String displayName;
 
-    @OneToMany
-    @JoinColumn(name = "umeta_id")
+    @OneToMany(mappedBy = "user")
     private Set<UserMeta> userMetaSet;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Comment> commentSet;
 
     public Long getId() {
         return id;
@@ -138,5 +141,13 @@ public class User {
 
     public void setUserMetaSet(Set<UserMeta> userMetaSet) {
         this.userMetaSet = userMetaSet;
+    }
+
+    public Set<Comment> getCommentSet() {
+        return commentSet;
+    }
+
+    public void setCommentSet(Set<Comment> commentSet) {
+        this.commentSet = commentSet;
     }
 }
