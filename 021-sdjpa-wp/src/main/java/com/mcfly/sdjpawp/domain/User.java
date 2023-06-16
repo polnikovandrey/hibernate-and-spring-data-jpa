@@ -1,6 +1,9 @@
 package com.mcfly.sdjpawp.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Size;
+import org.hibernate.validator.constraints.URL;
 
 import java.sql.Timestamp;
 
@@ -12,22 +15,31 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "user_login")
+    @Size(max = 60)
     private String login;
     @Column(name = "user_pass")
+    @Size(max = 255)
     private String password;
     @Column(name = "user_nicename")
+    @Size(max = 50)
     private String nicename;
     @Column(name = "user_email")
+    @Size(max = 100)
+    @Email
     private String email;
     @Column(name = "user_url")
+    @Size(max = 100)
+    @URL
     private String url;
     @Column(name = "user_registered")
     private Timestamp registered;
     @Column(name = "user_activation_key")
+    @Size(max = 255)
     private String activationKey;
     @Column(name = "user_status")
     private Integer status;
     @Column(name = "display_name", nullable = false)
+    @Size(max = 250)
     private String displayName;
 
     public Long getId() {
