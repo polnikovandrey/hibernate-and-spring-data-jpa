@@ -2,6 +2,7 @@ package com.mcfly.sdjpawp.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.hibernate.validator.constraints.URL;
 
@@ -24,52 +25,65 @@ public class Comment {
         @Column(name = "comment_ID")
         private Long id;
 
+        @NotNull
         @Column(name = "comment_post_ID")
         private Long postId;
 
+        @NotNull
         @Lob
         @Column(name = "comment_author")
         private String author;
 
+        @NotNull
         @Email
         @Size(max = 100)
         @Column(name = "comment_author_email", length = 100)
         private String authorEmail;
 
+        @NotNull
         @URL
         @Size(max = 200)
         @Column(name = "comment_author_url", length = 200)
         private String authorUrl;
 
+        @NotNull
         @Size(max = 100)
         @Column(name = "comment_author_ip", length = 100)
         private String authorIp;
 
+        @NotNull
         @Column(name = "comment_date")
         private Timestamp date;
 
+        @NotNull
         @Column(name = "comment_date_gmt")
         private Timestamp dateGmt;
 
+        @NotNull
         @Lob
         @Column(name = "comment_content", columnDefinition = "TEXT")
         private String content;
 
+        @NotNull
         @Column(name = "comment_karma")
         private Integer karma;
 
+        @NotNull
         @Size(max = 20)
         @Column(name = "comment_approved", length = 20)
         private String approved;
 
+        @NotNull
         @Size(max = 255)
         @Column(name = "comment_agent")
         private String agent;
 
+        @NotNull
         @Size(max = 20)
         @Column(name = "comment_type", length = 20)
         private String type;
 
+        @NotNull
         @Column(name = "comment_parent")
         private Long parent;
 

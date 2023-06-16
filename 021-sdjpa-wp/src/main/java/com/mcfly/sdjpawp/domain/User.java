@@ -2,6 +2,7 @@ package com.mcfly.sdjpawp.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.hibernate.validator.constraints.URL;
 
@@ -21,30 +22,48 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Long id;
+
+    @NotNull
     @Size(max = 60)
     @Column(name = "user_login", length = 60)
     private String login;
+
+    @NotNull
     @Size(max = 255)
     @Column(name = "user_pass")
     private String password;
+
+    @NotNull
     @Size(max = 50)
     @Column(name = "user_nicename", length = 50)
     private String nicename;
+
+    @NotNull
     @Email
     @Size(max = 100)
     @Column(name = "user_email", length = 100)
     private String email;
+
+    @NotNull
     @URL
     @Size(max = 100)
     @Column(name = "user_url", length = 100)
     private String url;
+
+    @NotNull
     @Column(name = "user_registered")
     private Timestamp registered;
+
+    @NotNull
     @Size(max = 255)
     @Column(name = "user_activation_key")
     private String activationKey;
+
+    @NotNull
     @Column(name = "user_status")
     private Integer status;
+
+    @NotNull
     @Size(max = 250)
     @Column(name = "display_name", nullable = false, length = 250)
     private String displayName;
