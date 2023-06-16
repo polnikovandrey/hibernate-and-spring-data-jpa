@@ -27,7 +27,7 @@ public class User {
     private String activationKey;
     @Column(name = "user_status")
     private Integer status;
-    @Column(name = "display_name")
+    @Column(name = "display_name", nullable = false)
     private String displayName;
 
     public Long getId() {
