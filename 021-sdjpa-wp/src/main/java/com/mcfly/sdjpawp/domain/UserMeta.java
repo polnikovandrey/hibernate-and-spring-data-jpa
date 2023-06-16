@@ -11,7 +11,8 @@ public class UserMeta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "umeta_id")
     private Long id;
-    private Long userId;
+    @ManyToOne
+    private User user;
     @Size(max = 255)
     @Column(columnDefinition = "LONGTEXT")
     private String metaKey;
@@ -25,14 +26,6 @@ public class UserMeta {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     public String getMetaKey() {
@@ -49,5 +42,13 @@ public class UserMeta {
 
     public void setMetaValue(String metaValue) {
         this.metaValue = metaValue;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

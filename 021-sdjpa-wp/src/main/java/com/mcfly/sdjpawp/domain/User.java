@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Size;
 import org.hibernate.validator.constraints.URL;
 
 import java.sql.Timestamp;
+import java.util.Set;
 
 @Entity
 @Table(name = "wp_users",
@@ -46,6 +47,10 @@ public class User {
     @Size(max = 250)
     @Column(name = "display_name", nullable = false, length = 250)
     private String displayName;
+
+    @OneToMany
+    @JoinColumn(name = "umeta_id")
+    private Set<UserMeta> userMetaSet;
 
     public Long getId() {
         return id;
@@ -125,5 +130,13 @@ public class User {
 
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
+    }
+
+    public Set<UserMeta> getUserMetaSet() {
+        return userMetaSet;
+    }
+
+    public void setUserMetaSet(Set<UserMeta> userMetaSet) {
+        this.userMetaSet = userMetaSet;
     }
 }
