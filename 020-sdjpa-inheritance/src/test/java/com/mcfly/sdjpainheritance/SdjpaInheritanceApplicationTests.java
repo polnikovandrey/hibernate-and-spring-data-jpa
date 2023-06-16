@@ -1,10 +1,10 @@
-package com.mcfly.sdjpainheritence;
+package com.mcfly.sdjpainheritance;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SdjpaInheritenceApplicationTests {
+class SdjpaInheritanceApplicationTests {
 
     @Test
     void contextLoads() {

@@ -1,13 +1,13 @@
-package com.mcfly.sdjpainheritence;
+package com.mcfly.sdjpainheritance;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SdjpaInheritenceApplication {
+public class SdjpaInheritanceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SdjpaInheritenceApplication.class, args);
+        SpringApplication.run(SdjpaInheritanceApplication.class, args);
     }
 
 }
