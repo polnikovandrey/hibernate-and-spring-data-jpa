@@ -33,6 +33,7 @@ public class PanDbConfiguration {
     }
 
     @Bean
+    @Primary
     public LocalContainerEntityManagerFactoryBean panEntityManagerFactory(@Qualifier("panDataSource") DataSource dataSource, EntityManagerFactoryBuilder builder) {
         return builder.dataSource(dataSource)
                 .packages(CreditCardPan.class)
