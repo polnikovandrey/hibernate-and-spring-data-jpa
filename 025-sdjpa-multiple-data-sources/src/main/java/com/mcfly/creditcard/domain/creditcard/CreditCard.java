@@ -1,5 +1,6 @@
 package com.mcfly.creditcard.domain.creditcard;
 
+import com.mcfly.creditcard.converters.CvvConverter;
 import jakarta.persistence.*;
 import lombok.*;
 

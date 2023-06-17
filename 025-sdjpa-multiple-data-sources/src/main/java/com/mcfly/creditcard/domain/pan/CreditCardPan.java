@@ -1,9 +1,7 @@
 package com.mcfly.creditcard.domain.pan;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.mcfly.creditcard.converters.CvvConverter;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -18,5 +16,8 @@ public class CreditCardPan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Convert(converter = CvvConverter.class)
     private String creditCardNumber;
+
+    private Long creditCardId;
 }

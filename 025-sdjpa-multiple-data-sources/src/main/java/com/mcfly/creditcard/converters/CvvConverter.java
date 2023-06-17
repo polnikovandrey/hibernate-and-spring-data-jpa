@@ -1,4 +1,4 @@
-package com.mcfly.creditcard.domain.creditcard;
+package com.mcfly.creditcard.converters;
 
 import com.mcfly.creditcard.config.SpringContextHelper;
 import com.mcfly.creditcard.services.EncryptionService;
