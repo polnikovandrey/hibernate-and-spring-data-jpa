@@ -15,6 +15,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 import java.util.Objects;
+import java.util.Properties;
 
 @Configuration
 @EnableJpaRepositories(basePackages = "com.mcfly.creditcard.repositories.creditcard", entityManagerFactoryRef = "cardEntityManagerFactory", transactionManagerRef = "cardTransactionManager")
@@ -37,10 +38,16 @@ public class CardDbConfiguration {
 
     @Bean
     public LocalContainerEntityManagerFactoryBean cardEntityManagerFactory(@Qualifier("cardDataSource") DataSource dataSource, EntityManagerFactoryBuilder builder) {
-        return builder.dataSource(dataSource)
+        final Properties jpaProperties = new Properties();
+        jpaProperties.put("hibernate.hbm2ddl.auto", "validate");
+        final LocalContainerEntityManagerFactoryBean entityManagerFactoryBean
+                = builder
+                .dataSource(dataSource)
                 .packages(CreditCard.class)
                 .persistenceUnit("card")
                 .build();
+        entityManagerFactoryBean.setJpaProperties(jpaProperties);
+        return entityManagerFactoryBean;
     }
 
     @Bean
