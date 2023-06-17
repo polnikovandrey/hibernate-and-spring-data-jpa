@@ -44,4 +44,16 @@ public class CreditCardServiceImpl implements CreditCardService {
                         .build());
         return savedCreditCard;
     }
+
+    @Override
+    public CreditCard getCreditCardById(Long id) {
+        final CreditCard creditCard = creditCardRepository.findById(id).orElseThrow();
+        final CreditCardHolder creditCardHolder = creditCardHolderRepository.findByCreditCardId(id).orElseThrow();
+        final CreditCardPan creditCardPan = creditCardPanRepository.findByCreditCardId(id).orElseThrow();
+        creditCard.setFirstName(creditCardHolder.getFirstName());
+        creditCard.setLastName(creditCardHolder.getLastName());
+        creditCard.setZipCode(creditCardHolder.getZipCode());
+        creditCard.setCreditCardNumber(creditCardPan.getCreditCardNumber());
+        return creditCard;
+    }
 }
