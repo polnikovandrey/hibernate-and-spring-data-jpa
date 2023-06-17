@@ -27,6 +27,7 @@ public class CardDbConfiguration {
     }
 
     @Bean
+    @ConfigurationProperties("spring.card.datasource.hikari")
     public DataSource cardDataSource(@Qualifier("cardDataSourceProperties") DataSourceProperties dataSourceProperties) {
         return dataSourceProperties
                 .initializeDataSourceBuilder()
