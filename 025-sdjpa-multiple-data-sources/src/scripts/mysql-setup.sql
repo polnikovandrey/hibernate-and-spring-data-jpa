@@ -1,10 +1,21 @@
-DROP DATABASE IF EXISTS payment;
-DROP USER IF EXISTS `paymentadmin`@`%`;
-DROP USER IF EXISTS `paymentuser`@`%`;
-CREATE DATABASE IF NOT EXISTS payment CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-CREATE USER IF NOT EXISTS `paymentadmin`@`%` IDENTIFIED WITH mysql_native_password BY 'password';
-GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, REFERENCES, INDEX, ALTER, EXECUTE, CREATE VIEW, SHOW VIEW,
-    CREATE ROUTINE, ALTER ROUTINE, EVENT, TRIGGER ON `payment`.* TO `paymentadmin`@`%`;
-CREATE USER IF NOT EXISTS `paymentuser`@`%` IDENTIFIED WITH mysql_native_password BY 'password';
-GRANT SELECT, INSERT, UPDATE, DELETE, SHOW VIEW ON `payment`.* TO `paymentuser`@`%`;
-FLUSH PRIVILEGES;
+-- cardholder db
+drop database if exists cardholder;
+drop user if exists `cardholderadmin`@`%`;
+drop user if exists `cardholderuser`@`%`;
+create database if not exists cardholder character set utf8mb4 collate utf8mb4_unicode_ci;
+create user if not exists `cardholderadmin`@`%` identified with mysql_native_password by 'password';
+grant select, insert, update, delete, create, drop, references, index, alter, execute, create view, show view, create routine, alter routine, event, trigger on `cardholder`.* to `cardholderadmin`@`%`;
+create user if not exists `cardholderuser`@`%` identified with mysql_native_password by 'password';
+grant select, insert, update, delete, show view on `cardholder`.* to `cardholderuser`@`%`;
+flush privileges;
+
+-- card db
+drop database if exists card;
+drop user if exists `cardadmin`@`%`;
+drop user if exists `carduser`@`%`;
+create database if not exists card character set utf8mb4 collate utf8mb4_unicode_ci;
+create user if not exists `cardadmin`@`%` identified with mysql_native_password by 'password';
+grant select, insert, update, delete, create, drop, references, insert, alter, execute, create view, show view, create routine, alter routine, event, trigger on `card`.* to `cardadmin`@`%`;
+create user if not exists `carduser`@`%` identified with mysql_native_password by 'password';
+grant select, insert, update, delete on `card`.* to `carduser`@`%`;
+flush privileges;
