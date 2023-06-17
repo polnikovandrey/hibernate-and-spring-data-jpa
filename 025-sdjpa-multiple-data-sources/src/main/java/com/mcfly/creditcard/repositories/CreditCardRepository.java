@@ -1,6 +1,6 @@
 package com.mcfly.creditcard.repositories;
 
-import com.mcfly.creditcard.domain.CreditCard;
+import com.mcfly.creditcard.domain.creditcard.CreditCard;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

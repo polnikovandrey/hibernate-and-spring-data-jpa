@@ -1,6 +1,6 @@
 package com.mcfly.creditcard.repositories;
 
-import com.mcfly.creditcard.domain.CreditCard;
+import com.mcfly.creditcard.domain.creditcard.CreditCard;
 import com.mcfly.creditcard.services.EncryptionService;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
