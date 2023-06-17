@@ -8,6 +8,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -16,6 +17,7 @@ import javax.sql.DataSource;
 import java.util.Objects;
 
 @Configuration
+@EnableJpaRepositories(basePackages = "com.mcfly.creditcard.repositories.creditcard", entityManagerFactoryRef = "cardEntityManagerFactory", transactionManagerRef = "cardTransactionManager")
 public class CardDbConfiguration {
 
     @Bean
@@ -41,7 +43,7 @@ public class CardDbConfiguration {
     }
 
     @Bean
-    public PlatformTransactionManager panTransactionManager(@Qualifier("cardEntityManagerFactory") LocalContainerEntityManagerFactoryBean entityManagerFactoryBean) {
+    public PlatformTransactionManager cardTransactionManager(@Qualifier("cardEntityManagerFactory") LocalContainerEntityManagerFactoryBean entityManagerFactoryBean) {
         return new JpaTransactionManager(Objects.requireNonNull(entityManagerFactoryBean.getObject()));
     }
 }
