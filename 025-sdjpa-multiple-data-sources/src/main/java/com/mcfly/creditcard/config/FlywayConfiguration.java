@@ -36,7 +36,7 @@ public class FlywayConfiguration {
                         dataSourceProperties.getUrl(),
                         dataSourceProperties.getUsername(),
                         dataSourceProperties.getPassword())
-                .locations("classpath:/db/migrations/card")
+                .locations("classpath:/db/migration/card")
                 .load();
     }
 
@@ -48,7 +48,7 @@ public class FlywayConfiguration {
                         dataSourceProperties.getUrl(),
                         dataSourceProperties.getUsername(),
                         dataSourceProperties.getPassword())
-                .locations("classpath:/db/migrations/cardholder")
+                .locations("classpath:/db/migration/cardholder")
                 .load();
     }
 
@@ -60,7 +60,7 @@ public class FlywayConfiguration {
                         dataSourceProperties.getUrl(),
                         dataSourceProperties.getUsername(),
                         dataSourceProperties.getPassword())
-                .locations("classpath:/db/migrations/pan")
+                .locations("classpath:/db/migration/pan")
                 .load();
     }
 
