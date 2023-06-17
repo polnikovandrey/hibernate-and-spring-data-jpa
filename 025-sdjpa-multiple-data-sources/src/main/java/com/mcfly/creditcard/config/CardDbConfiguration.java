@@ -8,9 +8,12 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
+import java.util.Objects;
 
 @Configuration
 public class CardDbConfiguration {
@@ -35,5 +38,10 @@ public class CardDbConfiguration {
                 .packages(CreditCard.class)
                 .persistenceUnit("card")
                 .build();
+    }
+
+    @Bean
+    public PlatformTransactionManager panTransactionManager(@Qualifier("cardEntityManagerFactory") LocalContainerEntityManagerFactoryBean entityManagerFactoryBean) {
+        return new JpaTransactionManager(Objects.requireNonNull(entityManagerFactoryBean.getObject()));
     }
 }
