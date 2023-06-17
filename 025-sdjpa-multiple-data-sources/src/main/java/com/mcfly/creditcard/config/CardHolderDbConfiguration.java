@@ -40,6 +40,7 @@ public class CardHolderDbConfiguration {
     public LocalContainerEntityManagerFactoryBean cardHolderEntityManagerFactory(@Qualifier("cardHolderDataSource") DataSource dataSource, EntityManagerFactoryBuilder builder) {
         final Properties jpaProperties = new Properties();
         jpaProperties.put("hibernate.hbm2ddl.auto", "validate");
+        jpaProperties.put("hibernate.physical_naming_strategy", "org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy");
         final LocalContainerEntityManagerFactoryBean entityManagerFactoryBean
                 = builder
                 .dataSource(dataSource)

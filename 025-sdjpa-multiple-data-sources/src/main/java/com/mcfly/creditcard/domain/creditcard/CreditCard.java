@@ -18,8 +18,6 @@ public class CreditCard {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String creditCardNumber;
-
     @Convert(converter = CvvConverter.class)
     private String cvv;
 
