@@ -45,6 +45,7 @@ public class CreditCardServiceImpl implements CreditCardService {
         return savedCreditCard;
     }
 
+    @Transactional
     @Override
     public CreditCard getCreditCardById(Long id) {
         final CreditCard creditCard = creditCardRepository.findById(id).orElseThrow();
