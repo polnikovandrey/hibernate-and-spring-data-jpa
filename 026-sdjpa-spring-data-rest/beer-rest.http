@@ -1,0 +1,33 @@
+###
+GET http://localhost:8080/api/v1/beer?page=1
+
+###
+GET http://localhost:8080/api/v1/profile/beer
+
+###
+POST http://localhost:8080/api/v1/beer
+Content-Type: application/json
+
+{
+  "beerName": "Lidskoe",
+  "beerStyle": "ALE",
+  "upc": "2318301340765",
+  "quantityOnHand": 205,
+  "price": 50.5
+}
+
+###
+PUT http://localhost:8080/api/v1/beer/1e0f5cd9-e07a-47b7-a642-d6e53549b45f
+Content-Type: application/json
+
+{
+  "beerName": "Lidskoe Pilsner",
+  "beerStyle": "ALE",
+  "upc": "2318301340765",
+  "quantityOnHand": 205,
+  "price": 50.5
+}
+
+###
+DELETE http://localhost:8080/api/v1/beer/1e0f5cd9-e07a-47b7-a642-d6e53549b45f
+Content-Type: application/json
